@@ -69,3 +69,6 @@ flutter:
     - lib/assets/icons/nail/nail=off.svg
     - lib/assets/icons/hammer/hammer=on.svg
     - lib/assets/icons/nail/nail=on.svg
+    #tools screen
+    - lib/assets/icons/Essentional, UI/Add Circle.svg
+    - lib/assets/icons/Essentional, UI/Minus Circle.svg

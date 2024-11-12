@@ -38,17 +38,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
           ),
           title: Text('Контакты'),
           centerTitle: true,
-          actions: [
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {
-                setState(() {
-                  contacts.removeAt(1);
-                });
-                // Действие при нажатии на меню
-              },
-            ),
-          ]),
+          actions: []),
       body: contacts.length == 0
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -131,8 +121,69 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                     Spacer(),
                                     InkWell(
                                       onTap: () {
-                                        contacts.removeAt(index);
-                                        setState(() {});
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Dialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(15.0),
+                                              ),
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(15.0),
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    TextButton(
+                                                      child: Text(
+                                                        "Редактировать",
+                                                        style: TextStyle(
+                                                          fontSize: QueryWidth / 20,
+                                                          fontWeight: FontWeight.w600,
+                                                          color: Colors.black87,
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewContactScreen(PhonesList: contacts, num: index))).then((_) => setState(() {}));
+                                                      },
+                                                    ),
+                                                    Divider(
+                                                      color: Colors.grey.shade300,
+                                                      thickness: 1.0,
+                                                      height: 20.0,
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        // Добавьте логику для удаления
+                                                        Navigator.of(context).pop(); // Закрыть диалог после нажатия
+                                                      },
+                                                      child: TextButton(
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            contacts.removeAt(index);
+                                                          });
+                                                          Navigator.pop(context);
+                                                        },
+                                                        child: Text(
+                                                          "Удалить",
+                                                          style: TextStyle(
+                                                            fontSize: QueryWidth / 20,
+                                                            fontWeight: FontWeight.w500,
+                                                            color: Colors.red,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
                                       },
                                       child: SvgPicture.asset('lib/assets/icons/Essentional, UI/Menu Dots.svg'),
                                     ),

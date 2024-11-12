@@ -30,41 +30,54 @@ class HiveBase {
     }
   }
 
-  // void PutProjectsInBase(List<dynamic> projects) async {
-  //   await boxList[0].put('projects', projects);
-  // }
+  void PutProjectsInBase(List<dynamic> projects) async {
+    await boxList[0].put('projects', projects);
+  }
 
-  // List? GetProjectsFromBase() {
-  //   try {
-  //     return boxList[0].get('projects');
-  //   } catch (e) {
-  //     debugPrint('\n\n' + e.toString() + '\n\n');
-  //     return [];
-  //   }
-  // }
+  List<dynamic> GetProjectsFromBase() {
+    try {
+      return boxList[0].get('projects');
+    } catch (e) {
+      debugPrint('\n\n' + e.toString() + '\n\n');
+      return [];
+    }
+  }
 
-  // void PutToolsInBase(List<Map<String, dynamic>> tools) {
-  //   boxList[0].put('tools', tools);
-  // }
+  void PutToolsInBase(List<dynamic> tools) {
+    boxList[0].put('tools', tools);
+  }
 
-  // List? GetToolsFromBase() {
-  //   try {
-  //     return boxList[0].get('tools');
-  //   } catch (e) {
-  //     debugPrint('\n\n' + e.toString() + '\n\n');
-  //     return [];
-  //   }
-  // }
+  List<dynamic> GetToolsFromBase() {
+    try {
+      return boxList[0].get('tools');
+    } catch (e) {
+      debugPrint('\n\n' + e.toString() + '\n\n');
+      return [];
+    }
+  }
 
-  // void PutFinanceInBase(List<Map<String, dynamic>> finance) {
-  //   boxList[0].put('finance', finance);
-  // }
+  void PutFinanceInBase(List<Map<String, dynamic>> finance) {
+    boxList[0].put('finance', finance);
+  }
 
-  // List? GetFinanceFromBase() {
-  //   try {
-  //     return boxList[0].get('finance');
-  //   } catch (e) {
-  //     return [];
-  //   }
-  // }
+  List? GetFinanceFromBase() {
+    try {
+      return boxList[0].get('finance');
+    } catch (e) {
+      return [];
+    }
+  }
+
+  void PutXfileInBase(List<dynamic> Xfiles) async {
+    await boxList[0].put('Xfiles', Xfiles);
+  }
+
+  List<dynamic> GetXfileFromBase() {
+    try {
+      return boxList[0].get('Xfiles');
+    } catch (e) {
+      debugPrint('\n\n' + e.toString() + '\n\n');
+      return [];
+    }
+  }
 }

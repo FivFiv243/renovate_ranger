@@ -3,28 +3,35 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:renovate_ranger/features/database/hive_base.dart';
+import 'package:renovate_ranger/features/models/projects_class.dart';
 
 class AddProjectScreen extends StatefulWidget {
-  const AddProjectScreen({super.key});
-
+  AddProjectScreen({super.key, required this.projectList, required this.typeOpen});
+  List<dynamic> projectList;
+  final int typeOpen;
   @override
   State<AddProjectScreen> createState() => _AddProjectScreenState();
 }
 
 String selectedFileName = '';
-late XFile? file = null;
+XFile? file = null;
+String xfilePath = '';
 
 //Text editing controllers
 final _projectnameControler = TextEditingController();
 final _projectdescriptionControler = TextEditingController();
 final _projectcommentControler = TextEditingController();
-
+int typesetedtool = 1;
 Future setImageProject() async {
   try {
     file = (await ImagePicker().pickImage(source: ImageSource.gallery))!;
+    xfilePath = file!.path;
     selectedFileName = file!.name;
   } catch (e) {}
 }
+
+List<dynamic> selectedTools = HiveBase().GetToolsFromBase();
 
 class _AddProjectScreenState extends State<AddProjectScreen> {
   @override
@@ -32,11 +39,23 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    file = null;
-    _projectcommentControler.text = '';
-    _projectnameControler.text = '';
-    _projectdescriptionControler.text = '';
-    selectedFileName = '';
+    if (widget.typeOpen == -1) {
+      file = null;
+      xfilePath = '';
+      _projectcommentControler.text = '';
+      _projectnameControler.text = '';
+      _projectdescriptionControler.text = '';
+      selectedFileName = '';
+      setState(() {});
+    } else {
+      file = null;
+      xfilePath = widget.projectList[widget.typeOpen].xfilepath;
+      _projectcommentControler.text = widget.projectList[widget.typeOpen].comment;
+      _projectnameControler.text = widget.projectList[widget.typeOpen].projectName;
+      _projectdescriptionControler.text = widget.projectList[widget.typeOpen].projectDescription;
+      selectedFileName = '';
+      setState(() {});
+    }
   }
 
   Widget build(BuildContext context) {
@@ -106,14 +125,14 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                       SizedBox(height: QueryHeight / 45),
 
                       Center(
-                        child: file == null
+                        child: xfilePath == ''
                             ? Container()
                             : ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.file(
                                   width: QueryWidth / 1.1,
                                   height: QueryHeight / 4.5,
-                                  File(file!.path),
+                                  File(xfilePath),
                                   scale: 0.5,
                                 ),
                               ),
@@ -169,9 +188,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                       // Кнопка для добавления инструментов и материалов
                       Center(
                         child: OutlinedButton(
-                          onPressed: () {
-                            // Действие для добавления инструментов и материалов
-                          },
+                          onPressed: () {},
                           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                             Text(
                               'Добавьте инструменты и материалы',
@@ -217,11 +234,21 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                 ElevatedButton(
                   onPressed: () {
                     // Действие при нажатии на кнопку "Сохранить"
-                    if ((_projectnameControler.text.trim() != '') & (file != null)) {
+                    if ((_projectnameControler.text.trim() != '') & (xfilePath != '')) {
+                      if (widget.typeOpen == -1) {
+                        widget.projectList.add(ProjectsClass(projectName: _projectnameControler.text.trim(), comment: _projectcommentControler.text.trim(), projectDescription: _projectdescriptionControler.text.trim(), xfilepath: xfilePath));
+                        HiveBase().PutProjectsInBase(widget.projectList);
+                        Navigator.pop(context);
+                      } else {
+                        widget.projectList.removeAt(widget.typeOpen);
+                        widget.projectList.add(ProjectsClass(projectName: _projectnameControler.text.trim(), comment: _projectcommentControler.text.trim(), projectDescription: _projectdescriptionControler.text.trim(), xfilepath: xfilePath));
+                        HiveBase().PutProjectsInBase(widget.projectList);
+                        Navigator.pop(context);
+                      }
                     } else {}
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: ((_projectnameControler.text.trim() != '') & (file != null)) ? Colors.blue : Colors.grey.shade300,
+                    backgroundColor: ((_projectnameControler.text.trim() != '') & (xfilePath != '')) ? Colors.blue : Colors.grey.shade300,
                     minimumSize: Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),

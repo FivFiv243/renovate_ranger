@@ -1,19 +1,23 @@
+import 'dart:ffi';
+
 import 'package:hive/hive.dart';
 
 @HiveType(typeId: 33, adapterName: "ItemClassAdapter")
 class ItemClass {
   @HiveField(0)
-  final bool mtool;
+  int mtool;
   @HiveField(1)
-  late final bool isIn;
+  int isIn;
   @HiveField(2)
-  final String name;
+  String name;
   @HiveField(3)
-  final double price;
+  String price;
   @HiveField(4)
-  late final dynamic quantity;
+  dynamic quantity;
   @HiveField(5)
-  final String comment;
+  String comment;
+  @HiveField(6)
+  String typeCount;
 
-  ItemClass({required this.mtool, required this.isIn, required this.name, required this.price, required this.quantity, required this.comment});
+  ItemClass({required this.mtool, required this.isIn, required this.name, required this.price, required this.quantity, required this.comment, required this.typeCount});
 }

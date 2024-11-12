@@ -8,16 +8,17 @@ class ItemClassAdapter extends TypeAdapter<ItemClass> {
 
   @override
   ItemClass read(BinaryReader reader) {
-    return ItemClass(mtool: reader.readBool(), isIn: reader.readBool(), name: reader.readString(), price: reader.readDouble(), quantity: reader.read(), comment: reader.readString());
+    return ItemClass(mtool: reader.readInt(), isIn: reader.readInt(), name: reader.readString(), price: reader.readString(), quantity: reader.read(), comment: reader.readString(), typeCount: reader.readString());
   }
 
   @override
   void write(BinaryWriter writer, ItemClass obj) {
-    writer.write(obj.mtool);
-    writer.write(obj.isIn);
+    writer.writeInt(obj.mtool);
+    writer.writeInt(obj.isIn);
     writer.writeString(obj.name);
-    writer.writeDouble(obj.price);
+    writer.writeString(obj.price);
     writer.write(obj.quantity);
     writer.writeString(obj.comment);
+    writer.writeString(obj.typeCount);
   }
 }

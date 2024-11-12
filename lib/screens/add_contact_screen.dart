@@ -26,11 +26,19 @@ class _NewContactScreenState extends State<NewContactScreen> {
   @override
   void initState() {
     super.initState();
-    _fsnameController.text = '';
-    _phoneNumberController.text = '';
-    _emailController.text = '';
-    _workDoneController.text = '';
-    _callbackController.text = '';
+    if (num == -1) {
+      _fsnameController.text = '';
+      _phoneNumberController.text = '';
+      _emailController.text = '';
+      _workDoneController.text = '';
+      _callbackController.text = '';
+    } else {
+      _fsnameController.text = widget.PhonesList[widget.num].name;
+      _phoneNumberController.text = widget.PhonesList[widget.num].number;
+      _emailController.text = widget.PhonesList[widget.num].email;
+      _workDoneController.text = widget.PhonesList[widget.num].job;
+      _callbackController.text = widget.PhonesList[widget.num].callback;
+    }
   }
 
   Widget build(BuildContext context) {
@@ -51,7 +59,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
         ),
         body: SingleChildScrollView(
             child: Container(
-          height: QueryHeight,
+          height: QueryHeight / 1.115,
           child: Padding(
             padding: EdgeInsets.all(QueryHeight / 90),
             child: Column(
@@ -97,6 +105,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
                     color: Colors.grey.withOpacity(0.1),
                   ),
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     maxLength: 14,
                     controller: _phoneNumberController,
                     onEditingComplete: () {
@@ -185,10 +194,18 @@ class _NewContactScreenState extends State<NewContactScreen> {
                 ElevatedButton(
                   onPressed: () {
                     // Действие при нажатии на кнопку "Сохранить"
-                    widget.PhonesList.add(ContactClass(name: _fsnameController.text.trim(), number: _phoneNumberController.text.trim(), email: _emailController.text.trim(), job: _workDoneController.text.trim(), callback: _callbackController.text.trim()));
-                    HiveBase().PutPhonesInBase(widget.PhonesList);
-                    setState(() {});
-                    Navigator.pop(context);
+                    if (((_fsnameController.text.trim() != '') & (_phoneNumberController.text.trim() != ''))) {
+                      if (widget.num == -1) {
+                        widget.PhonesList.add(ContactClass(name: _fsnameController.text.trim(), number: _phoneNumberController.text.trim(), email: _emailController.text.trim(), job: _workDoneController.text.trim(), callback: _callbackController.text.trim()));
+                        HiveBase().PutPhonesInBase(widget.PhonesList);
+                        setState(() {});
+                      } else {
+                        widget.PhonesList.removeAt(widget.num);
+                        widget.PhonesList.add(ContactClass(name: _fsnameController.text.trim(), number: _phoneNumberController.text.trim(), email: _emailController.text.trim(), job: _workDoneController.text.trim(), callback: _callbackController.text.trim()));
+                        HiveBase().PutPhonesInBase(widget.PhonesList);
+                      }
+                      Navigator.pop(context);
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ((_fsnameController.text.trim() != '') & (_phoneNumberController.text.trim() != '')) ? Colors.blue : Colors.grey.shade300,
