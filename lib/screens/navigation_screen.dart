@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:renovate_ranger/screens/Tools_and_materials_screen.dart';
 import 'package:renovate_ranger/screens/advices_screen.dart';
 import 'package:renovate_ranger/screens/contacts_screen.dart';
@@ -42,13 +43,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   style: TextStyle(fontSize: QueryHeight / 35),
                 ),
                 Spacer(),
-                IconButton(
-                  icon: Icon(Icons.arrow_circle_left_outlined),
-                  color: Color(0xff4b87fe),
-                  iconSize: QueryHeight / 19,
-                  onPressed: () {
+                GestureDetector(
+                  onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => OnboardingScreen()));
                   },
+                  child: SvgPicture.asset(
+                    'lib/assets/icons/Arrows/Round Arrow Left.svg',
+                    width: 32,
+                    height: 32,
+                  ),
                 ),
                 Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0))
               ]),
@@ -92,10 +95,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                           style: TextStyle(fontSize: QueryHeight / 50),
                                         ),
                                         Spacer(),
-                                        Icon(
-                                          Icons.arrow_circle_right_outlined,
-                                          color: Color(0xff4b87fe),
-                                          size: QueryHeight / 25,
+                                        SvgPicture.asset(
+                                          'lib/assets/icons/Arrows/Round Arrow Right.svg',
+                                          width: 32,
+                                          height: 32,
                                         ),
                                         Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0))
                                       ],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:renovate_ranger/screens/add_tools_screen.dart';
 
 class ToolsAndMaterialsScreen extends StatefulWidget {
   const ToolsAndMaterialsScreen({super.key});
@@ -28,12 +30,16 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
           ),
           centerTitle: true,
           actions: [
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {
-                // Действие при нажатии на меню
-              },
-            ),
+            GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddToolsScreen()));
+                },
+                child: SvgPicture.asset(
+                  'lib/assets/icons/Notes/Document Add.svg',
+                  width: 30,
+                  height: 30,
+                )),
+            Padding(padding: EdgeInsets.fromLTRB(0, 0, QueryWidth / 30, 0))
           ]),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -41,12 +47,13 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
           Center(
             child: Column(
               children: [
-                // Заглушка для изображения
-                // SizedBox(
-                //   height: 200,
-                //   child: Image.asset('assets/images/illustration.png'),
-                // ),
-                SizedBox(height: QueryHeight / 40),
+                Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 5, 0, 0)),
+                SizedBox(
+                  width: QueryWidth / 1.1,
+                  height: QueryHeight / 4,
+                  child: Image.asset('lib/assets/images/toolsfiller.x2.png'),
+                ),
+                SizedBox(height: QueryHeight / 90),
                 Text(
                   'Список пуст.',
                   style: TextStyle(
@@ -58,25 +65,6 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
             ),
           ),
           Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => ));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 61, 122, 228),
-                minimumSize: Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: Text(
-                'Добавить проект',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
-            ),
-          ),
         ],
       ),
     );

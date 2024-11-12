@@ -14,12 +14,19 @@ dependencies:
     sdk: flutter
   #UI
   cupertino_icons: ^1.0.8
+  flutter_svg: ^2.0.14
 
   #smt
   flutter_screenutil: ^5.9.3
 
   #Logic
+  in_app_review: ^2.0.9
   url_launcher: ^6.3.1
+  image_picker: ^1.1.2
+  #database
+  hive: 2.2.3
+  isar_flutter_libs: ^4.0.0-dev.13
+  path_provider: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -36,3 +43,29 @@ flutter:
     - lib/assets/images/onboarding1.png
     - lib/assets/images/onboarding2.png
     - lib/assets/images/onboarding3.png
+    - lib/assets/images/toolsfiller.x2.png
+    - lib/assets/images/contactsfiller.x2.png
+    - lib/assets/images/projectsfiller.x2.png
+    - lib/assets/images/advice_image.jpg
+
+    #icons
+    - lib/assets/icons/Notes/Document Add.svg
+    - lib/assets/icons/Arrows/Round Arrow Left.svg
+    - lib/assets/icons/Arrows/Round Arrow Right.svg
+    #Settings screen Icons
+    - lib/assets/icons/Hands/Hand Stars.svg
+    - lib/assets/icons/School/Notebook Bookmark.svg
+    - lib/assets/icons/Security/Lock Unlocked.svg
+    #Appbar
+    - lib/assets/icons/Essentional, UI/Sort.svg
+    #add project screen
+    - lib/assets/icons/download/Download Minimalistic.svg
+    #contacts screen
+    - lib/assets/icons/Call/Phone Rounded.svg
+    - lib/assets/icons/email/Property 1=Linear, Property 2=Messages, Conversation, Property 3=Letter.svg
+    - lib/assets/icons/Essentional, UI/Menu Dots.svg
+    #add tools
+    - lib/assets/icons/hammer/hammer=off.svg
+    - lib/assets/icons/nail/nail=off.svg
+    - lib/assets/icons/hammer/hammer=on.svg
+    - lib/assets/icons/nail/nail=on.svg

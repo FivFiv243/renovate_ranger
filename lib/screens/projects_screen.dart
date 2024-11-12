@@ -40,10 +40,12 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             child: Column(
               children: [
                 // Заглушка для изображения
-                // SizedBox(
-                //   height: 200,
-                //   child: Image.asset('assets/images/illustration.png'),
-                // ),
+                Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 5, 0, 0)),
+                SizedBox(
+                  width: QueryWidth / 1.1,
+                  height: QueryHeight / 4,
+                  child: Image.asset('lib/assets/images/projectsfiller.x2.png'),
+                ),
                 SizedBox(height: QueryHeight / 40),
                 Text(
                   'Вы пока не добавили проект.',

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:renovate_ranger/screens/navigation_screen.dart';
 import 'package:url_launcher/url_launcher.dart' as uLaunch;
-import 'package:url_launcher/url_launcher.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -61,17 +60,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               itemCount: _images.length,
               itemBuilder: (context, index) {
                 return Image.asset(
-                  width: QueryWidth / 3,
+                  width: QueryWidth / 2,
                   height: QueryHeight / 2,
                   _images[index],
-                  fit: BoxFit.contain,
                 );
               },
             ),
           ),
           Container(
             alignment: Alignment.center,
-            height: QueryHeight / 5,
+            height: QueryHeight / 20,
             width: QueryWidth / 1.05,
             child: Expanded(
               child: PageView.builder(
@@ -83,7 +81,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
           ),
-          Spacer(),
+          Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 8, 0, 0)),
           Container(
             width: QueryWidth / 1.1,
             child: ElevatedButton(
@@ -108,10 +106,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             children: [
               GestureDetector(
                 onTap: () async {
-                  await uLaunch.launchUrl(
-                    Uri(scheme: "https", host: "policies.google.com", path: "/terms?hl=ru"),
-                    mode: LaunchMode.externalApplication,
-                  );
+                  try {
+                    await uLaunch.launchUrl(
+                      Uri(scheme: "https", host: "policies.google.com", path: "/terms?hl=ru"),
+                      mode: uLaunch.LaunchMode.externalApplication,
+                    );
+                  } catch (e) {}
                 },
                 child: Text(
                   "Условия использования",
@@ -124,10 +124,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
               GestureDetector(
                 onTap: () async {
-                  await uLaunch.launchUrl(
-                    Uri(scheme: "https", host: "ru-ru.facebook.com", path: "/payments_terms/privacy"),
-                    mode: LaunchMode.externalApplication,
-                  );
+                  try {
+                    await uLaunch.launchUrl(
+                      Uri(scheme: "https", host: "ru-ru.facebook.com", path: "/payments_terms/privacy"),
+                      mode: uLaunch.LaunchMode.externalApplication,
+                    );
+                  } catch (e) {}
                 },
                 child: Text(
                   "Политика конфиденциальности",
