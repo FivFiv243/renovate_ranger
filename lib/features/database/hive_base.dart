@@ -80,4 +80,17 @@ class HiveBase {
       return [];
     }
   }
+
+  void PutUsedtools(Map<dynamic, dynamic> tools, String boxname) {
+    boxList[0].put(boxname, tools);
+  }
+
+  Map<dynamic, dynamic> GetProjTools(String boxname) {
+    try {
+      return boxList[0].get(boxname);
+    } catch (e) {
+      debugPrint('\n\n' + e.toString() + '\n\n');
+      return <String, dynamic>{};
+    }
+  }
 }

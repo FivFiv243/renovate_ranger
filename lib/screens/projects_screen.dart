@@ -114,18 +114,17 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                                     ),
                                     child: Row(
                                       children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(QueryHeight / 90),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(8),
-                                            child: Image.file(
-                                              width: QueryWidth / 6,
-                                              height: QueryHeight / 6,
-                                              File(projectList[index].xfilepath),
-                                              scale: 0.5,
-                                            ),
+                                        Padding(padding: EdgeInsets.all(QueryHeight / 90)),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: Image.file(
+                                            width: QueryWidth / 6,
+                                            height: QueryHeight / 6,
+                                            File(projectList[index].xfilepath),
+                                            scale: 0.5,
                                           ),
                                         ),
+                                        Padding(padding: EdgeInsets.all(QueryHeight / 90)),
                                         Text(projectList[index].projectName.toString().substring(0, projectList[index].projectName.toString().length > 30 ? 30 : projectList[index].projectName.toString().length)),
                                         Spacer(),
                                         GestureDetector(

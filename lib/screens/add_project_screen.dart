@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:renovate_ranger/features/database/hive_base.dart';
+import 'package:renovate_ranger/features/designed_widgets/customDialog.dart';
 import 'package:renovate_ranger/features/models/projects_class.dart';
 
 class AddProjectScreen extends StatefulWidget {
@@ -32,6 +33,7 @@ Future setImageProject() async {
 }
 
 List<dynamic> selectedTools = HiveBase().GetToolsFromBase();
+Map<dynamic, dynamic> listtools = {};
 
 class _AddProjectScreenState extends State<AddProjectScreen> {
   @override
@@ -54,6 +56,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
       _projectnameControler.text = widget.projectList[widget.typeOpen].projectName;
       _projectdescriptionControler.text = widget.projectList[widget.typeOpen].projectDescription;
       selectedFileName = '';
+      listtools = HiveBase().GetProjTools(widget.projectList[widget.typeOpen].projectName);
       setState(() {});
     }
   }
@@ -186,9 +189,100 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                       SizedBox(height: QueryHeight / 45),
 
                       // Кнопка для добавления инструментов и материалов
+                      listtools.length > 0
+                          ? Container(
+                              height: QueryHeight / 15,
+                              child: ListView.separated(
+                                  itemCount: listtools.length,
+                                  separatorBuilder: (context, index) => Padding(padding: EdgeInsets.all(QueryHeight / 90)),
+                                  itemBuilder: (context, index) {
+                                    final quantityController = TextEditingController();
+                                    return listtools[listtools.keys.toList()[index]] != 0
+                                        ? Container(
+                                            padding: EdgeInsets.all(16.0),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(12),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey.withOpacity(0.1),
+                                                  spreadRadius: 5,
+                                                  blurRadius: 7,
+                                                  offset: Offset(0, 3),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Padding(padding: EdgeInsets.all(QueryWidth / 90)),
+                                                SvgPicture.asset('lib/assets/icons/hammer/hammer=off.svg'),
+                                                Text(listtools.keys.toList()[index]),
+                                                Spacer(),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    if (listtools[listtools.keys.toList()[index]] > 0) {
+                                                      listtools[listtools.keys.toList()[index]] = listtools[listtools.keys.toList()[index]] - 1;
+                                                      setState(() {});
+                                                    }
+                                                  },
+                                                  child: SvgPicture.asset('lib/assets/icons/Essentional, UI/Minus Circle.svg'),
+                                                ),
+                                                Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 90, 0, 0, 0)),
+                                                Container(
+                                                  width: QueryWidth / 5,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    color: Colors.grey.withOpacity(0.1),
+                                                  ),
+                                                  child: TextField(
+                                                    onTap: () {
+                                                      quantityController.text = listtools[listtools.keys.toList()[index]].toString();
+                                                    },
+                                                    onEditingComplete: () {
+                                                      setState(() {
+                                                        if (quantityController.text == '' || double.parse(quantityController.text.trim()) < -1) {
+                                                          quantityController.text = '0';
+                                                        }
+                                                        listtools[listtools.keys.toList()[index]] = double.parse(quantityController.text.trim());
+                                                        quantityController.text = '';
+                                                      });
+                                                    },
+                                                    keyboardType: TextInputType.number,
+                                                    controller: quantityController,
+                                                    decoration: InputDecoration(
+                                                      border: InputBorder.none,
+                                                      hintText: '  ' + quantityController.text.trim() == '' ? quantityController.text.trim() : listtools[listtools.keys.toList()[index]].toString(),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 90, 0, 0, 0)),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    if (listtools[listtools.keys.toList()[index]] > -9000) {
+                                                      listtools[listtools.keys.toList()[index]] = listtools[listtools.keys.toList()[index]] + 1;
+                                                      setState(() {});
+                                                    }
+                                                  },
+                                                  child: SvgPicture.asset('lib/assets/icons/Essentional, UI/Add Circle.svg'),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        : Container();
+                                  }))
+                          : Container(),
                       Center(
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => SelectionDialog(
+                                      Listtools: listtools,
+                                    )).then((value) => setState(() {
+                                  listtools = value;
+                                }));
+                          },
                           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                             Text(
                               'Добавьте инструменты и материалы',
@@ -238,6 +332,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                       if (widget.typeOpen == -1) {
                         widget.projectList.add(ProjectsClass(projectName: _projectnameControler.text.trim(), comment: _projectcommentControler.text.trim(), projectDescription: _projectdescriptionControler.text.trim(), xfilepath: xfilePath));
                         HiveBase().PutProjectsInBase(widget.projectList);
+                        HiveBase().PutUsedtools(listtools, _projectnameControler.text.trim());
                         Navigator.pop(context);
                       } else {
                         widget.projectList.removeAt(widget.typeOpen);
