@@ -26,7 +26,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
   @override
   void initState() {
     super.initState();
-    if (num == -1) {
+    if (widget.num == -1) {
       _fsnameController.text = '';
       _phoneNumberController.text = '';
       _emailController.text = '';

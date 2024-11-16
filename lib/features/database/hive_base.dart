@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:renovate_ranger/features/models/contact_class.dart';
-import 'package:renovate_ranger/features/type_adapters/contact_class_adapter.dart';
 
 class HiveBase {
   final boxList = [Hive.box('contactsBox')];
@@ -56,11 +54,11 @@ class HiveBase {
     }
   }
 
-  void PutFinanceInBase(List<Map<String, dynamic>> finance) {
+  void PutFinanceInBase(List<dynamic> finance) {
     boxList[0].put('finance', finance);
   }
 
-  List? GetFinanceFromBase() {
+  List<dynamic> GetFinanceFromBase() {
     try {
       return boxList[0].get('finance');
     } catch (e) {
