@@ -228,13 +228,15 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (widget.TypeOpen == -1) {
-                      widget.financeList.add(Finance(name: _nameController.text.trim(), expanse: _sumController.text.trim(), date: selectedDate.toString(), type: typefinance));
-                      HiveBase().PutFinanceInBase(widget.financeList);
-                      Navigator.of(context).pop();
+                      if (_nameController.text.trim() != '' && _sumController.text.trim() != '' && _sumController.text.trim() != '' && typefinance != '') {
+                        widget.financeList.add(Finance(name: _nameController.text.trim(), expanse: _sumController.text.trim(), date: selectedDate.toString(), type: typefinance));
+                        HiveBase().PutFinanceInBase(widget.financeList);
+                        Navigator.of(context).pop();
+                      }
                     } else {}
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 61, 122, 228),
+                    backgroundColor: (_nameController.text.trim() != '' && _sumController.text.trim() != '' && _sumController.text.trim() != '' && typefinance != '') ? const Color.fromARGB(255, 61, 122, 228) : Colors.grey,
                     minimumSize: Size(double.infinity, QueryHeight / 17.5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),

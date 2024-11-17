@@ -30,6 +30,7 @@ Color ColorPieSetter(String type) {
   }
 }
 
+String filter = 'Все время';
 List<dynamic> categoryExpenses = HiveBase().GetFinanceFromBase();
 
 class _FinanceScreenState extends State<FinanceScreen> {
@@ -76,7 +77,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 ),
                 SizedBox(height: QueryHeight / 40),
                 // Блок с историей расходов
-                _buildExpenseHistory(QueryHeight),
+                _buildExpenseHistory(QueryHeight, QueryWidth),
                 Spacer(),
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, QueryHeight / 6),
@@ -111,33 +112,88 @@ class _FinanceScreenState extends State<FinanceScreen> {
         )));
   }
 
-  Widget _buildExpenseHistory(double Qh) {
+  Widget _buildExpenseHistory(double Qh, double Qw) {
+    int FilterSetter = -1;
     return Container(
+      padding: EdgeInsets.all(Qw / 180),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
       height: Qh / 2.5,
       child: ListView.builder(
         itemCount: categoryExpenses.length,
         itemBuilder: (context, index) {
           final expense = categoryExpenses[index];
-          return ListTileTheme(
-              data: ListTileThemeData(),
-              child: ListTile(
-                title: Text(expense.name),
-                subtitle: Text('${expense.type} • ${expense.date}'),
-                trailing: Text(
-                  '${expense.expanse} руб',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                ),
-              ));
+          if (filter == "Все время") {
+            FilterSetter = 100000;
+          }
+          if (filter == "Месяц") {
+            FilterSetter = 30;
+          }
+          if (filter == "3 Месяца") {
+            FilterSetter = 91;
+          }
+          if (filter == "6 Месяцев") {
+            FilterSetter = 182;
+          }
+          if (filter == "Год") {
+            FilterSetter = 365;
+          }
+          if (DateTime.now().difference(DateTime.parse(expense.date)).inDays <= FilterSetter) {
+            return ListTileTheme(
+                data: ListTileThemeData(),
+                child: ListTile(
+                  title: Text(expense.name.toString().substring(0, expense.name.toString().length > 30 ? 30 : expense.name.toString().length)),
+                  subtitle: Text('${expense.type} • ${expense.date}'),
+                  trailing: Text(
+                    '${expense.expanse} руб',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                ));
+          }
         },
       ),
     );
   }
 
   List<PieChartSectionData> _getPieChartSections() {
-    return categoryExpenses.map((entry) {
-      int index = categoryExpenses.toList().indexOf(entry);
-      return PieChartSectionData(color: ColorPieSetter(categoryExpenses[index].type), value: double.parse(categoryExpenses[index].expanse), title: '${entry.expanse} руб', radius: 75, showTitle: false);
-    }).toList();
+    int FilterSetter = -1;
+    if (categoryExpenses.length > 0) {
+      return categoryExpenses.map((entry) {
+        if (filter == "Все время") {
+          FilterSetter = 100000;
+        }
+        if (filter == "Месяц") {
+          FilterSetter = 30;
+        }
+        if (filter == "3 Месяца") {
+          FilterSetter = 91;
+        }
+        if (filter == "6 Месяцев") {
+          FilterSetter = 182;
+        }
+        if (filter == "Год") {
+          FilterSetter = 365;
+        }
+        if (DateTime.now().difference(DateTime.parse(entry.date)).inDays <= FilterSetter) {
+          int index = categoryExpenses.toList().indexOf(entry);
+          return PieChartSectionData(color: ColorPieSetter(categoryExpenses[index].type), value: double.parse(categoryExpenses[index].expanse), title: '${entry.expanse} руб', radius: 75, showTitle: false);
+        } else {
+          return PieChartSectionData(color: Colors.grey, value: 0, title: '${entry.expanse} руб', radius: 75, showTitle: false);
+        }
+      }).toList();
+    } else {
+      return [PieChartSectionData(color: Colors.grey, value: 100, radius: 75, showTitle: false)];
+    }
   }
 
   Widget _buildChartSection(double Qw, double Qh) {
@@ -148,24 +204,43 @@ class _FinanceScreenState extends State<FinanceScreen> {
     double works = 0;
     double other = 0;
     try {
+      int FilterSetter = -1;
       setState(() {
         categoryExpenses.forEach((e) {
-          if (e.type == "Материалы") {
-            material += double.parse(e.expanse);
+          if (filter == "Все время") {
+            FilterSetter = 100000;
           }
-          if (e.type == "Инструменты") {
-            tools += double.parse(e.expanse);
+          if (filter == "Месяц") {
+            FilterSetter = 30;
           }
-          if (e.type == "Проекты") {
-            projects += double.parse(e.expanse);
+          if (filter == "3 Месяца") {
+            FilterSetter = 91;
           }
-          if (e.type == "Работы") {
-            works += double.parse(e.expanse);
-          } else {
-            other += double.parse(e.expanse);
+          if (filter == "6 Месяцев") {
+            FilterSetter = 182;
           }
+          if (filter == "Год") {
+            FilterSetter = 365;
+          }
+          if (DateTime.now().difference(DateTime.parse(e.date)).inDays <= FilterSetter) {
+            debugPrint(DateTime.parse(e.date).difference(DateTime.now()).inDays.toString());
+            if (e.type == "Материалы") {
+              material += double.parse(e.expanse);
+            }
+            if (e.type == "Инструменты") {
+              tools += double.parse(e.expanse);
+            }
+            if (e.type == "Проекты") {
+              projects += double.parse(e.expanse);
+            }
+            if (e.type == "Работы") {
+              works += double.parse(e.expanse);
+            } else {
+              other += double.parse(e.expanse);
+            }
 
-          total += double.parse(e.expanse);
+            total += double.parse(e.expanse);
+          }
         });
       });
     } catch (e) {
@@ -210,9 +285,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 DropdownMenuItem(value: "Год", child: Text("  Год")),
               ],
               onChanged: (value) {
-                setState(() {
-                  typefinance = value!;
-                });
+                filter = value!;
+                setState(() {});
               },
               hint: Text(typefinance == '' ? "  Тип" : typefinance, style: TextStyle(color: Colors.grey[400])),
             ),
@@ -326,14 +400,5 @@ class _FinanceScreenState extends State<FinanceScreen> {
         )
       ],
     );
-  }
-
-  // Функция для добавления новой записи расходов
-  void _addExpense() {
-    // Здесь должна быть логика добавления новой записи (например, открытие нового экрана или диалогового окна)
-    // Пока просто добавим пример в список и обновим экран
-    setState(() {
-      categoryExpenses.add(Finance(name: 'Новый расход', expanse: '1000.0', date: DateTime.now().toString(), type: 'Другое'));
-    });
   }
 }

@@ -33,6 +33,18 @@ class _NavigationScreenState extends State<NavigationScreen> {
         body: SafeArea(
       child: Container(
           height: QueryHeight,
+          padding: EdgeInsets.all(QueryHeight / 60),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
           child: Column(
             children: [
               Padding(padding: EdgeInsets.fromLTRB(0, QueryWidth / 12, 0, 0)),
