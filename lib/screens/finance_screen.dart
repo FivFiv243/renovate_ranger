@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:renovate_ranger/features/database/hive_base.dart';
 import 'package:renovate_ranger/features/models/finance.dart';
+import 'package:renovate_ranger/main.dart';
 import 'package:renovate_ranger/screens/add_finance_screen.dart';
 
 class FinanceScreen extends StatefulWidget {
@@ -36,8 +38,6 @@ List<dynamic> categoryExpenses = HiveBase().GetFinanceFromBase();
 class _FinanceScreenState extends State<FinanceScreen> {
   @override
   Widget build(BuildContext context) {
-    final QueryWidth = MediaQuery.of(context).size.width;
-    final QueryHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Colors.white,
@@ -45,7 +45,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
             shadowColor: Colors.black.withOpacity(0.4),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(12),
+                bottom: Radius.circular(12).w,
               ),
             ),
             title: Text('Финансы'),
@@ -53,17 +53,17 @@ class _FinanceScreenState extends State<FinanceScreen> {
             actions: []),
         body: SingleChildScrollView(
             child: Padding(
-          padding: EdgeInsets.all(QueryHeight / 60),
+          padding: EdgeInsets.all(7.5).w,
           child: Container(
-            height: QueryHeight,
+            height: 0.85.sh,
             child: Column(
               children: [
                 // Блок с круговой диаграммой и общей суммой
                 Container(
-                  padding: EdgeInsets.all(QueryWidth / 180),
+                  padding: EdgeInsets.all(2.5).w,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12).w,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.1),
@@ -73,39 +73,36 @@ class _FinanceScreenState extends State<FinanceScreen> {
                       ),
                     ],
                   ),
-                  child: _buildChartSection(QueryWidth, QueryHeight),
+                  child: _buildChartSection(1.sw, 1.sh),
                 ),
-                SizedBox(height: QueryHeight / 40),
+                SizedBox(height: 10.h),
                 // Блок с историей расходов
-                _buildExpenseHistory(QueryHeight, QueryWidth),
+                _buildExpenseHistory(1.sh, 1.sw),
                 Spacer(),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, QueryHeight / 6),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(
-                              builder: (context) => AddFinanceScreen(
-                                    TypeOpen: -1,
-                                    financeList: categoryExpenses,
-                                  )))
-                          .then((_) {
-                        setState(() {});
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 61, 122, 228),
-                      minimumSize: Size(double.infinity, QueryHeight / 17.5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: Text(
-                      'Добавить запись',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(
+                            builder: (context) => AddFinanceScreen(
+                                  TypeOpen: -1,
+                                  financeList: categoryExpenses,
+                                )))
+                        .then((_) {
+                      setState(() {});
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 61, 122, 228),
+                    minimumSize: Size(double.infinity.w, 50.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12).w,
                     ),
                   ),
-                )
+                  child: Text(
+                    'Добавить запись',
+                    style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                  ),
+                ),
               ],
             ),
           ),
@@ -115,10 +112,10 @@ class _FinanceScreenState extends State<FinanceScreen> {
   Widget _buildExpenseHistory(double Qh, double Qw) {
     int FilterSetter = -1;
     return Container(
-      padding: EdgeInsets.all(Qw / 180),
+      padding: EdgeInsets.all(2.5).w,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12).w,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.1),
@@ -128,7 +125,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
           ),
         ],
       ),
-      height: Qh / 2.5,
+      height: 0.35.sh,
       child: ListView.builder(
         itemCount: categoryExpenses.length,
         itemBuilder: (context, index) {
@@ -156,7 +153,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   subtitle: Text('${expense.type} • ${expense.date}'),
                   trailing: Text(
                     '${expense.expanse} руб',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                   ),
                 ));
           }
@@ -186,13 +183,13 @@ class _FinanceScreenState extends State<FinanceScreen> {
         }
         if (DateTime.now().difference(DateTime.parse(entry.date)).inDays <= FilterSetter) {
           int index = categoryExpenses.toList().indexOf(entry);
-          return PieChartSectionData(color: ColorPieSetter(categoryExpenses[index].type), value: double.parse(categoryExpenses[index].expanse), title: '${entry.expanse} руб', radius: 75, showTitle: false);
+          return PieChartSectionData(color: ColorPieSetter(categoryExpenses[index].type), value: double.parse(categoryExpenses[index].expanse), title: '${entry.expanse} руб', radius: 60.r, showTitle: false);
         } else {
-          return PieChartSectionData(color: Colors.grey, value: 0, title: '${entry.expanse} руб', radius: 75, showTitle: false);
+          return PieChartSectionData(color: Colors.grey, value: 0, title: '${entry.expanse} руб', radius: 60.r, showTitle: false);
         }
       }).toList();
     } else {
-      return [PieChartSectionData(color: Colors.grey, value: 100, radius: 75, showTitle: false)];
+      return [PieChartSectionData(color: Colors.grey, value: 100, radius: 60.r, showTitle: false)];
     }
   }
 
@@ -253,19 +250,19 @@ class _FinanceScreenState extends State<FinanceScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(children: [
-          Text("Всего ", style: TextStyle(fontSize: 18)),
+          Text("Всего ", style: TextStyle(fontSize: 18.sp)),
           Spacer(),
           Text(
             '${total.toStringAsFixed(0)} руб',
-            style: TextStyle(fontSize: 20, color: Colors.blue),
+            style: TextStyle(fontSize: 20.sp, color: Colors.blue),
           ),
-          Padding(padding: EdgeInsets.all(Qw / 30)),
+          Padding(padding: EdgeInsets.all(Qw / 30).w),
           Container(
-            width: Qw / 2.95,
-            padding: EdgeInsets.all(0),
+            width: Qw / 2.80,
+            padding: EdgeInsets.all(0).w,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12).w,
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.1),
@@ -296,13 +293,13 @@ class _FinanceScreenState extends State<FinanceScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              width: Qw / 2,
+              width: Qw / 2.35,
               child: AspectRatio(
                 aspectRatio: 1.5,
                 child: PieChart(
                   PieChartData(
                     sections: _getPieChartSections(),
-                    centerSpaceRadius: 20,
+                    centerSpaceRadius: 10.0.r,
                     sectionsSpace: 0,
                   ),
                 ),
@@ -314,16 +311,16 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 Container(
                   height: Qh / 40,
                   width: Qh / 40,
-                  decoration: BoxDecoration(color: const Color(0xff3ED0AD), borderRadius: BorderRadius.circular(60)),
+                  decoration: BoxDecoration(color: const Color(0xff3ED0AD), borderRadius: BorderRadius.circular(60).w),
                 ),
-                Padding(padding: EdgeInsets.all(Qw / 160)),
+                Padding(padding: EdgeInsets.all(Qw / 160).w),
                 Text(
                   "Материалы ",
-                  style: TextStyle(fontSize: Qw / 40),
+                  style: TextStyle(fontSize: 12.sp),
                 ),
                 Text(
                   material.toString() + " руб",
-                  style: TextStyle(fontSize: Qw / 40),
+                  style: TextStyle(fontSize: 12.sp),
                 )
               ]),
               Padding(padding: EdgeInsets.fromLTRB(0, Qh / 160, 0, 0)),
@@ -333,14 +330,14 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   width: Qh / 40,
                   decoration: BoxDecoration(color: const Color.fromARGB(255, 243, 153, 49), borderRadius: BorderRadius.circular(60)),
                 ),
-                Padding(padding: EdgeInsets.all(Qw / 120)),
+                Padding(padding: EdgeInsets.all(Qw / 120).w),
                 Text(
                   "Инструменты ",
-                  style: TextStyle(fontSize: Qw / 40),
+                  style: TextStyle(fontSize: 12.sp),
                 ),
                 Text(
                   tools.toString() + " руб",
-                  style: TextStyle(fontSize: Qw / 40),
+                  style: TextStyle(fontSize: 12.sp),
                 )
               ]),
               Padding(padding: EdgeInsets.fromLTRB(0, Qh / 160, 0, 0)),
@@ -353,11 +350,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 Padding(padding: EdgeInsets.all(Qw / 120)),
                 Text(
                   "Проекты ",
-                  style: TextStyle(fontSize: Qw / 40),
+                  style: TextStyle(fontSize: 12.sp),
                 ),
                 Text(
                   projects.toString() + " руб",
-                  style: TextStyle(fontSize: Qw / 40),
+                  style: TextStyle(fontSize: 12.sp),
                 )
               ]),
               Padding(padding: EdgeInsets.fromLTRB(0, Qh / 160, 0, 0)),
@@ -370,11 +367,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 Padding(padding: EdgeInsets.all(Qw / 120)),
                 Text(
                   "Работы ",
-                  style: TextStyle(fontSize: Qw / 40),
+                  style: TextStyle(fontSize: 12.sp),
                 ),
                 Text(
                   works.toString() + " руб",
-                  style: TextStyle(fontSize: Qw / 40),
+                  style: TextStyle(fontSize: 12.sp),
                 )
               ]),
               Padding(padding: EdgeInsets.fromLTRB(0, Qh / 160, 0, 0)),
@@ -387,14 +384,14 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 Padding(padding: EdgeInsets.all(Qw / 120)),
                 Text(
                   "Другое ",
-                  style: TextStyle(fontSize: Qw / 40),
+                  style: TextStyle(fontSize: 12.sp),
                 ),
                 Text(
                   other.toString() + " руб",
-                  style: TextStyle(fontSize: Qw / 40),
+                  style: TextStyle(fontSize: 12.sp),
                 )
               ]),
-              Padding(padding: EdgeInsets.fromLTRB(0, Qh / 12, 0, 0)),
+              Padding(padding: EdgeInsets.fromLTRB(0, 15.h, 0, 0)),
             ])
           ],
         )

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:renovate_ranger/features/database/hive_base.dart';
 import 'package:renovate_ranger/features/models/contact_class.dart';
+import 'package:renovate_ranger/main.dart';
 import 'package:renovate_ranger/screens/add_contact_screen.dart';
 
 class ContactsScreen extends StatefulWidget {
@@ -24,8 +26,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
   }
 
   Widget build(BuildContext context) {
-    final QueryWidth = MediaQuery.of(context).size.width;
-    final QueryHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
@@ -46,18 +46,18 @@ class _ContactsScreenState extends State<ContactsScreen> {
                 Center(
                     child: Column(
                   children: [
-                    Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 5, 0, 0)),
+                    Padding(padding: EdgeInsets.fromLTRB(0, 0.25.sh, 0, 0)),
                     SizedBox(
-                      width: QueryWidth / 1.1,
-                      height: QueryHeight / 4,
-                      child: Image.asset('lib/assets/images/contactsfiller.x2.png'),
+                      width: 0.9.sw,
+                      height: 0.25.sh,
+                      child: Image.asset('assets/images/contactsfiller.x2.png'),
                     ),
-                    SizedBox(height: QueryHeight / 40),
+                    SizedBox(height: 30.h),
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       Text(
                         'У вас нет сохраненных контактов. ',
                         style: TextStyle(
-                          fontSize: QueryWidth / 30,
+                          fontSize: 13.sp,
                           color: Colors.grey,
                         ),
                       ),
@@ -73,7 +73,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                         },
                         child: Text(
                           "Добавить контакт",
-                          style: TextStyle(fontSize: QueryWidth / 30, color: const Color.fromARGB(255, 23, 62, 235), decoration: TextDecoration.underline, decorationColor: const Color.fromARGB(255, 23, 62, 235)),
+                          style: TextStyle(fontSize: 13.sp, color: const Color.fromARGB(255, 23, 62, 235), decoration: TextDecoration.underline, decorationColor: const Color.fromARGB(255, 23, 62, 235)),
                         ),
                       ),
                     ]),
@@ -84,17 +84,17 @@ class _ContactsScreenState extends State<ContactsScreen> {
             )
           : Center(
               child: Container(
-                height: QueryHeight,
+                height: 1.sh,
                 child: ListView.separated(
                     itemCount: contacts.length + 1,
                     separatorBuilder: (context, index) {
-                      return Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 45, 0, 0));
+                      return Padding(padding: EdgeInsets.fromLTRB(0, 10.h, 0, 0));
                     },
                     itemBuilder: (context, index) {
                       return index < contacts.length
                           ? Container(
-                              width: QueryWidth / 1.1,
-                              padding: EdgeInsets.all(QueryHeight / 60),
+                              width: 0.90.sw,
+                              padding: EdgeInsets.all(7.5).w,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(12),
@@ -113,7 +113,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                     Text(
                                       contacts[index].name,
                                       style: TextStyle(
-                                        fontSize: QueryWidth / 32,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black87,
                                       ),
@@ -129,9 +129,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                                 borderRadius: BorderRadius.circular(15.0),
                                               ),
                                               child: Container(
-                                                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                                                padding: EdgeInsets.symmetric(vertical: 20.0.h, horizontal: 20.0.w),
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(15.0),
+                                                  borderRadius: BorderRadius.circular(15.0).w,
                                                 ),
                                                 child: Column(
                                                   mainAxisSize: MainAxisSize.min,
@@ -141,7 +141,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                                       child: Text(
                                                         "Редактировать",
                                                         style: TextStyle(
-                                                          fontSize: QueryWidth / 20,
+                                                          fontSize: 16.sp,
                                                           fontWeight: FontWeight.w600,
                                                           color: Colors.black87,
                                                         ),
@@ -154,7 +154,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                                     Divider(
                                                       color: Colors.grey.shade300,
                                                       thickness: 1.0,
-                                                      height: 20.0,
+                                                      height: 20.0.h,
                                                     ),
                                                     GestureDetector(
                                                       onTap: () {
@@ -171,7 +171,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                                         child: Text(
                                                           "Удалить",
                                                           style: TextStyle(
-                                                            fontSize: QueryWidth / 20,
+                                                            fontSize: 16.sp,
                                                             fontWeight: FontWeight.w500,
                                                             color: Colors.red,
                                                           ),
@@ -185,35 +185,35 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                           },
                                         );
                                       },
-                                      child: SvgPicture.asset('lib/assets/icons/Essentional, UI/Menu Dots.svg'),
+                                      child: SvgPicture.asset('assets/icons/Essentional, UI/Menu Dots.svg'),
                                     ),
-                                    Padding(padding: EdgeInsets.fromLTRB(0, 0, QueryWidth / 60, 0))
+                                    Padding(padding: EdgeInsets.fromLTRB(0, 0, 5.w, 0))
                                   ]),
-                                  SizedBox(height: QueryHeight / 80),
+                                  SizedBox(height: 5.h),
 
                                   // Phone number and Email row
                                   Row(
                                     children: [
                                       SvgPicture.asset(
-                                        'lib/assets/icons/Call/Phone Rounded.svg',
+                                        'assets/icons/Call/Phone Rounded.svg',
                                         width: 24,
                                       ),
-                                      SizedBox(width: QueryWidth / 60),
+                                      SizedBox(width: 7.5.w),
                                       Text(
                                         contacts[index].number,
                                         style: TextStyle(
-                                          fontSize: QueryWidth / 30,
+                                          fontSize: 12.w,
                                           color: Colors.black87,
                                         ),
                                       ),
-                                      SizedBox(width: QueryWidth / 30),
-                                      contacts[index].email != '' ? SvgPicture.asset('lib/assets/icons/email/Property 1=Linear, Property 2=Messages, Conversation, Property 3=Letter.svg') : Container(),
-                                      SizedBox(width: QueryWidth / 60),
+                                      SizedBox(width: 5.w),
+                                      contacts[index].email != '' ? SvgPicture.asset('assets/icons/email/Property 1=Linear, Property 2=Messages, Conversation, Property 3=Letter.svg') : Container(),
+                                      SizedBox(width: 2.5.w),
                                       contacts[index].email != ''
                                           ? Text(
                                               contacts[index].email,
                                               style: TextStyle(
-                                                fontSize: QueryWidth / 30,
+                                                fontSize: 12.sp,
                                                 color: Colors.black87,
                                               ),
                                             )
@@ -221,26 +221,26 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                     ],
                                   ),
 
-                                  contacts[index].job != '' ? SizedBox(height: QueryHeight / 60) : Container(),
+                                  contacts[index].job != '' ? SizedBox(height: 7.5.sp) : Container(),
 
                                   // Service description
                                   contacts[index].job != ''
                                       ? Text(
                                           contacts[index].job,
                                           style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 16.sp,
                                             color: Colors.black87,
                                           ),
                                         )
                                       : Container(),
-                                  SizedBox(height: QueryHeight / 90),
+                                  SizedBox(height: 5.h),
 
                                   // Additional description
                                   contacts[index].callback != ''
                                       ? Text(
                                           contacts[index].callback,
                                           style: TextStyle(
-                                            fontSize: 14,
+                                            fontSize: 14.sp,
                                             color: Colors.black54,
                                           ),
                                         )
@@ -261,7 +261,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                               },
                               child: Text(
                                 "Добавить контакт",
-                                style: TextStyle(fontSize: QueryWidth / 30, color: const Color.fromARGB(255, 23, 62, 235), decoration: TextDecoration.underline, decorationColor: const Color.fromARGB(255, 23, 62, 235)),
+                                style: TextStyle(fontSize: 16.sp, color: const Color.fromARGB(255, 23, 62, 235), decoration: TextDecoration.underline, decorationColor: const Color.fromARGB(255, 23, 62, 235)),
                               ),
                             ));
                     }),

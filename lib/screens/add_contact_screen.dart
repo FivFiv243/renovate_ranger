@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:renovate_ranger/features/database/hive_base.dart';
 import 'package:renovate_ranger/features/models/contact_class.dart';
+import 'package:renovate_ranger/main.dart';
 
 class NewContactScreen extends StatefulWidget {
   const NewContactScreen({
@@ -42,8 +44,6 @@ class _NewContactScreenState extends State<NewContactScreen> {
   }
 
   Widget build(BuildContext context) {
-    final QueryHeight = MediaQuery.of(context).size.height;
-    final QueryWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -51,30 +51,34 @@ class _NewContactScreenState extends State<NewContactScreen> {
           shadowColor: Colors.black.withOpacity(0.4),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(12),
+              bottom: Radius.circular(12).w,
             ),
           ),
           title: Text('Новый контакт'),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
-            child: Container(
-          height: QueryHeight / 1.115,
+        body: Center(
+            child: SingleChildScrollView(
+                child: Container(
+          alignment: Alignment.center,
+          width: 0.9.sw,
+          height: 700.h,
           child: Padding(
-            padding: EdgeInsets.all(QueryHeight / 90),
+            padding: EdgeInsets.all(5.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                SizedBox(height: 5.h),
                 // Поле для ввода ФИО
                 Text(
                   'ФИО',
-                  style: TextStyle(color: Colors.blue, fontSize: 16),
+                  style: TextStyle(color: Colors.blue, fontSize: 16.sp),
                 ),
-                SizedBox(height: QueryHeight / 90),
+                SizedBox(height: 5.h),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8).w,
                     color: Colors.grey.withOpacity(0.1),
                   ),
                   child: TextField(
@@ -90,18 +94,18 @@ class _NewContactScreenState extends State<NewContactScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: QueryHeight / 45),
+                SizedBox(height: 10.h),
 
                 // Поле для ввода номера телефона
                 Text(
                   'Номер телефона',
-                  style: TextStyle(color: Colors.blue, fontSize: 16),
+                  style: TextStyle(color: Colors.blue, fontSize: 16.sp),
                 ),
-                SizedBox(height: QueryHeight / 90),
+                SizedBox(height: 5.h),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8).w,
                     color: Colors.grey.withOpacity(0.1),
                   ),
                   child: TextField(
@@ -118,18 +122,18 @@ class _NewContactScreenState extends State<NewContactScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: QueryHeight / 45),
+                SizedBox(height: 10.h),
 
                 // Поле для ввода электронной почты
                 Text(
                   'Электронная почта',
-                  style: TextStyle(color: Colors.blue, fontSize: 16),
+                  style: TextStyle(color: Colors.blue, fontSize: 16.sp),
                 ),
-                SizedBox(height: QueryHeight / 90),
+                SizedBox(height: 5.h),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8).w,
                     color: Colors.grey.withOpacity(0.1),
                   ),
                   child: TextField(
@@ -142,18 +146,18 @@ class _NewContactScreenState extends State<NewContactScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 16.h),
 
                 // Поле для ввода выполненных работ
                 Text(
                   'Выполненные работы',
                   style: TextStyle(color: Colors.blue, fontSize: 16),
                 ),
-                SizedBox(height: QueryHeight / 90),
+                SizedBox(height: 5.h),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8).w,
                     color: Colors.grey.withOpacity(0.1),
                   ),
                   child: TextField(
@@ -165,18 +169,18 @@ class _NewContactScreenState extends State<NewContactScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 16.h),
 
                 // Поле для ввода отзыва
                 Text(
                   'Отзыв',
-                  style: TextStyle(color: Colors.blue, fontSize: 16),
+                  style: TextStyle(color: Colors.blue, fontSize: 16.sp),
                 ),
-                SizedBox(height: QueryHeight / 90),
+                SizedBox(height: 5.h),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8).w,
                     color: Colors.grey.withOpacity(0.1),
                   ),
                   child: TextField(
@@ -209,9 +213,9 @@ class _NewContactScreenState extends State<NewContactScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ((_fsnameController.text.trim() != '') & (_phoneNumberController.text.trim() != '')) ? Colors.blue : Colors.grey.shade300,
-                    minimumSize: Size(double.infinity, 50),
+                    minimumSize: Size(double.infinity.w, 50.h),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8).w,
                     ),
                   ),
                   child: Text(
@@ -222,6 +226,6 @@ class _NewContactScreenState extends State<NewContactScreen> {
               ],
             ),
           ),
-        )));
+        ))));
   }
 }

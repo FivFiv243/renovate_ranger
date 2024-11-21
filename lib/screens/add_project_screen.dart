@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:renovate_ranger/features/database/hive_base.dart';
 import 'package:renovate_ranger/features/designed_widgets/customDialog.dart';
 import 'package:renovate_ranger/features/models/projects_class.dart';
+import 'package:renovate_ranger/main.dart';
 
 class AddProjectScreen extends StatefulWidget {
   AddProjectScreen({super.key, required this.projectList, required this.typeOpen});
@@ -32,7 +34,7 @@ Future setImageProject() async {
   } catch (e) {}
 }
 
-List<dynamic> selectedTools = HiveBase().GetToolsFromBase();
+List<dynamic> selectedTools = HiveBase().GetToolsOrMaterialFromBase();
 Map<dynamic, dynamic> listtools = {};
 
 class _AddProjectScreenState extends State<AddProjectScreen> {
@@ -48,6 +50,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
       _projectnameControler.text = '';
       _projectdescriptionControler.text = '';
       selectedFileName = '';
+      listtools = {};
       setState(() {});
     } else {
       file = null;
@@ -62,8 +65,6 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
   }
 
   Widget build(BuildContext context) {
-    final QueryHeight = MediaQuery.of(context).size.height;
-    final QueryWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -71,7 +72,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
           shadowColor: Colors.black.withOpacity(0.4),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(12),
+              bottom: Radius.circular(12).w,
             ),
           ),
           title: Text('Добавление пункта'),
@@ -79,17 +80,17 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
         ),
         body: SingleChildScrollView(
             child: SizedBox(
-          height: QueryHeight - QueryHeight / 9,
+          height: 722.5.h,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0).w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  padding: EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(16.0).w,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12).w,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.1),
@@ -105,13 +106,13 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                       // Поле для названия проекта
                       Text(
                         'Название',
-                        style: TextStyle(color: Colors.blue, fontSize: 16),
+                        style: TextStyle(color: Colors.blue, fontSize: 16.sp),
                       ),
-                      SizedBox(height: QueryHeight / 90),
+                      SizedBox(height: 5.h),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(8).w,
                           color: Colors.grey.withOpacity(0.1),
                         ),
                         child: TextField(
@@ -125,7 +126,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: QueryHeight / 45),
+                      SizedBox(height: 10.h),
 
                       Center(
                         child: xfilePath == ''
@@ -133,8 +134,8 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                             : ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.file(
-                                  width: QueryWidth / 1.1,
-                                  height: QueryHeight / 4.5,
+                                  width: 0.9.sw,
+                                  height: 0.125.sh,
                                   File(xfilePath),
                                   scale: 0.5,
                                 ),
@@ -147,33 +148,33 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                         },
                         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                           SvgPicture.asset(
-                            'lib/assets/icons/download/Download Minimalistic.svg',
+                            'assets/icons/download/Download Minimalistic.svg',
                           ),
-                          Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 45, 0, 0, 0)),
+                          Padding(padding: EdgeInsets.fromLTRB(5.w, 0, 0, 0)),
                           Text(
                             'Добавьте изображение проекта',
-                            style: TextStyle(color: Colors.grey),
+                            style: TextStyle(color: Colors.grey, fontSize: 14.sp),
                           ),
                         ]),
                         style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8).w,
                           ),
                           side: BorderSide(color: const Color.fromARGB(76, 224, 224, 224)),
                         ),
                       )),
-                      SizedBox(height: QueryHeight / 45),
+                      SizedBox(height: 10.h),
 
                       // Поле для описания проекта
                       Text(
                         'Описание проекта',
-                        style: TextStyle(color: Colors.blue, fontSize: 16),
+                        style: TextStyle(color: Colors.blue, fontSize: 16.sp),
                       ),
-                      SizedBox(height: QueryHeight / 90),
+                      SizedBox(height: 5.h),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(8).w,
                           color: Colors.grey.withOpacity(0.1),
                         ),
                         child: TextField(
@@ -186,23 +187,23 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: QueryHeight / 45),
+                      SizedBox(height: 10.h),
 
                       // Кнопка для добавления инструментов и материалов
                       listtools.length > 0
                           ? Container(
-                              height: QueryHeight / 15,
+                              height: 80.h,
                               child: ListView.separated(
                                   itemCount: listtools.length,
-                                  separatorBuilder: (context, index) => Padding(padding: EdgeInsets.all(QueryHeight / 90)),
+                                  separatorBuilder: (context, index) => Padding(padding: EdgeInsets.all(5).w),
                                   itemBuilder: (context, index) {
                                     final quantityController = TextEditingController();
                                     return listtools[listtools.keys.toList()[index]] != 0
                                         ? Container(
-                                            padding: EdgeInsets.all(16.0),
+                                            padding: EdgeInsets.all(16.0).w,
                                             decoration: BoxDecoration(
                                               color: Colors.white,
-                                              borderRadius: BorderRadius.circular(12),
+                                              borderRadius: BorderRadius.circular(12).w,
                                               boxShadow: [
                                                 BoxShadow(
                                                   color: Colors.grey.withOpacity(0.1),
@@ -214,8 +215,8 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                                             ),
                                             child: Row(
                                               children: [
-                                                Padding(padding: EdgeInsets.all(QueryWidth / 90)),
-                                                SvgPicture.asset('lib/assets/icons/hammer/hammer=off.svg'),
+                                                Padding(padding: EdgeInsets.all(5).w),
+                                                SvgPicture.asset('assets/icons/hammer/hammer=off.svg'),
                                                 Text(listtools.keys.toList()[index]),
                                                 Spacer(),
                                                 GestureDetector(
@@ -225,14 +226,14 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                                                       setState(() {});
                                                     }
                                                   },
-                                                  child: SvgPicture.asset('lib/assets/icons/Essentional, UI/Minus Circle.svg'),
+                                                  child: SvgPicture.asset('assets/icons/Essentional, UI/Minus Circle.svg'),
                                                 ),
-                                                Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 90, 0, 0, 0)),
+                                                Padding(padding: EdgeInsets.fromLTRB(5.w, 0, 0, 0)),
                                                 Container(
-                                                  width: QueryWidth / 5,
+                                                  width: 0.2.sw,
                                                   decoration: BoxDecoration(
                                                     border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderRadius: BorderRadius.circular(8).w,
                                                     color: Colors.grey.withOpacity(0.1),
                                                   ),
                                                   child: TextField(
@@ -256,7 +257,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                                                     ),
                                                   ),
                                                 ),
-                                                Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 90, 0, 0, 0)),
+                                                Padding(padding: EdgeInsets.fromLTRB(5.w, 0, 0, 0)),
                                                 GestureDetector(
                                                   onTap: () {
                                                     if (listtools[listtools.keys.toList()[index]] > -9000) {
@@ -264,7 +265,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                                                       setState(() {});
                                                     }
                                                   },
-                                                  child: SvgPicture.asset('lib/assets/icons/Essentional, UI/Add Circle.svg'),
+                                                  child: SvgPicture.asset('assets/icons/Essentional, UI/Add Circle.svg'),
                                                 ),
                                               ],
                                             ),
@@ -286,29 +287,29 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                             Text(
                               'Добавьте инструменты и материалы',
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: Colors.black, fontSize: 14.sp),
                             ),
                           ]),
                           style: OutlinedButton.styleFrom(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8).w,
                             ),
                             side: BorderSide(color: const Color.fromARGB(255, 3, 67, 244)),
                           ),
                         ),
                       ),
-                      SizedBox(height: QueryHeight / 45),
+                      SizedBox(height: 10.h),
 
                       // Поле для комментария
                       Text(
                         'Комментарий',
-                        style: TextStyle(color: Colors.blue, fontSize: 16),
+                        style: TextStyle(color: Colors.blue, fontSize: 16.sp),
                       ),
-                      SizedBox(height: QueryHeight / 90),
+                      SizedBox(height: 5.h),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(8).w,
                           color: Colors.grey.withOpacity(0.1),
                         ),
                         child: TextField(
@@ -344,9 +345,9 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ((_projectnameControler.text.trim() != '') & (xfilePath != '')) ? Colors.blue : Colors.grey.shade300,
-                    minimumSize: Size(double.infinity, 50),
+                    minimumSize: Size(double.infinity.w, 50.h),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8).w,
                     ),
                   ),
                   child: Text(

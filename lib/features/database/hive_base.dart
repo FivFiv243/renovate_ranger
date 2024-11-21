@@ -1,94 +1,155 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:renovate_ranger/features/models/contact_class.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class HiveBase {
   final boxList = [Hive.box('contactsBox')];
+  late String appDirectory;
 
-  void PutPhonesInBase(List<dynamic> numbers) async {
+  /// Инициализация директории приложения
+  Future<void> initDirectory() async {
+    final dir = await getApplicationDocumentsDirectory();
+    appDirectory = dir.path;
+  }
+
+  /// Сохраняет список номеров телефонов в базе
+  Future<void> PutPhonesInBase(List<dynamic> numbers) async {
     await boxList[0].put('numbers', numbers);
   }
 
-  void jj() async {
+  /// Удаляет данные из базы
+  Future<void> jj() async {
     await Hive.deleteFromDisk();
   }
 
+  /// Получает список номеров телефонов из базы
   List<dynamic> GetPhoneFromBase() {
     try {
-      List<dynamic> contacts = boxList[0].get('numbers');
-      if (contacts == null) {
-        return [];
-      } else {
-        return contacts;
-      }
+      final contacts = boxList[0].get('numbers');
+      return contacts ?? [];
     } catch (e) {
-      debugPrint('\n\n' + e.toString() + '\n\n');
-      final List<ContactClass> list = [];
-      return list;
+      debugPrint('\n\nError: $e\n\n');
+      return [];
     }
   }
 
-  void PutProjectsInBase(List<dynamic> projects) async {
+  /// Сохраняет проекты в базе
+  Future<void> PutProjectsInBase(List<dynamic> projects) async {
     await boxList[0].put('projects', projects);
   }
 
+  /// Получает список проектов из базы
   List<dynamic> GetProjectsFromBase() {
     try {
-      return boxList[0].get('projects');
+      return boxList[0].get('projects') ?? [];
     } catch (e) {
-      debugPrint('\n\n' + e.toString() + '\n\n');
+      debugPrint('\n\nError: $e\n\n');
       return [];
     }
   }
 
-  void PutToolsInBase(List<dynamic> tools) {
-    boxList[0].put('tools', tools);
+  /// Сохраняет инструменты или материалы в базе
+  Future<void> PutToolsOrMaterialInBase(List<dynamic> tools) async {
+    await boxList[0].put('tools', tools);
   }
 
-  List<dynamic> GetToolsFromBase() {
+  /// Получает список инструментов или материалов из базы
+  List<dynamic> GetToolsOrMaterialFromBase() {
     try {
-      return boxList[0].get('tools');
+      return boxList[0].get('tools') ?? [];
     } catch (e) {
-      debugPrint('\n\n' + e.toString() + '\n\n');
+      debugPrint('\n\nError: $e\n\n');
       return [];
     }
   }
 
-  void PutFinanceInBase(List<dynamic> finance) {
-    boxList[0].put('finance', finance);
+  /// Устанавливает флаг прохождения онбординга
+  Future<void> SetBoardingFlag() async {
+    await boxList[0].put("onboarding flag", true);
   }
 
+  /// Получает флаг прохождения онбординга
+  bool GetOnboardingFlag() {
+    try {
+      return boxList[0].get("onboarding flag") ?? false;
+    } catch (e) {
+      debugPrint('\n\nError: $e\n\n');
+      return false;
+    }
+  }
+
+  /// Сохраняет финансы в базе
+  Future<void> PutFinanceInBase(List<dynamic> finance) async {
+    await boxList[0].put('finance', finance);
+  }
+
+  /// Получает финансы из базы
   List<dynamic> GetFinanceFromBase() {
     try {
-      return boxList[0].get('finance');
+      return boxList[0].get('finance') ?? [];
     } catch (e) {
+      debugPrint('\n\nError: $e\n\n');
       return [];
     }
   }
 
-  void PutXfileInBase(List<dynamic> Xfiles) async {
+  /// Сохраняет файлы с относительными путями
+  Future<void> PutXfileInBase(List<String> Xfiles) async {
     await boxList[0].put('Xfiles', Xfiles);
   }
 
-  List<dynamic> GetXfileFromBase() {
+  /// Получает файлы с относительными путями
+  List<String> GetXfileFromBase() {
     try {
-      return boxList[0].get('Xfiles');
+      return List<String>.from(boxList[0].get('Xfiles') ?? []);
     } catch (e) {
-      debugPrint('\n\n' + e.toString() + '\n\n');
+      debugPrint('\n\nError: $e\n\n');
       return [];
     }
   }
 
-  void PutUsedtools(Map<dynamic, dynamic> tools, String boxname) {
-    boxList[0].put(boxname, tools);
+  /// Сохраняет используемые инструменты в указанную базу
+  Future<void> PutUsedtools(Map<dynamic, dynamic> tools, String boxname) async {
+    await boxList[0].put(boxname, tools);
   }
 
+  /// Получает инструменты проекта из указанной базы
   Map<dynamic, dynamic> GetProjTools(String boxname) {
     try {
-      return boxList[0].get(boxname);
+      return boxList[0].get(boxname) ?? <dynamic, dynamic>{};
     } catch (e) {
-      debugPrint('\n\n' + e.toString() + '\n\n');
-      return <String, dynamic>{};
+      debugPrint('\n\nError: $e\n\n');
+      return {};
+    }
+  }
+
+  /// Генерация полного пути к файлу
+  String _getFullPath(String relativePath) {
+    return '$appDirectory/$relativePath';
+  }
+
+  /// Сохраняет файл на диск и сохраняет его относительный путь в базе
+  Future<void> saveFile(String relativePath, List<int> fileData) async {
+    final file = File(_getFullPath(relativePath));
+    await file.create(recursive: true);
+    await file.writeAsBytes(fileData);
+
+    final existingPaths = GetXfileFromBase();
+    if (!existingPaths.contains(relativePath)) {
+      existingPaths.add(relativePath);
+      await PutXfileInBase(existingPaths);
+    }
+  }
+
+  /// Загружает файл с диска
+  Future<File?> loadFile(String relativePath) async {
+    final file = File(_getFullPath(relativePath));
+    if (await file.exists()) {
+      return file;
+    } else {
+      debugPrint('File not found: $relativePath');
+      return null;
     }
   }
 }

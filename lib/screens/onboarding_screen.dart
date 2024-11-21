@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:renovate_ranger/features/constans.dart/constants.dart';
+import 'package:renovate_ranger/features/database/hive_base.dart';
+import 'package:renovate_ranger/main.dart';
 import 'package:renovate_ranger/screens/navigation_screen.dart';
 import 'package:url_launcher/url_launcher.dart' as uLaunch;
 
@@ -13,9 +17,9 @@ late PageController _pageController;
 late PageController _descriptionController;
 int _currentPage = 0;
 final List<String> _images = [
-  'lib/assets/images/onboarding1.png',
-  'lib/assets/images/onboarding2.png',
-  'lib/assets/images/onboarding3.png',
+  'assets/images/onboarding1.png',
+  'assets/images/onboarding2.png',
+  'assets/images/onboarding3.png',
 ];
 
 final List<String> descriptonList = ["Дизайн проекты и контакты исполнителей с которыми вы сотрудничали", "Ваши материала и инструменты, а также информация об их наличии и потребности", "Советы профессионалов о технологиях и правилах при выполнении ремонтных работ"];
@@ -25,6 +29,7 @@ void _nextImage(BuildContext context) {
     _currentPage++;
   } else {
     _currentPage = 0;
+    HiveBase().SetBoardingFlag();
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => NavigationScreen()));
   }
   _pageController.animateToPage(
@@ -48,20 +53,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Widget build(BuildContext context) {
-    final QueryHeight = MediaQuery.of(context).size.height;
-    final QueryWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Column(
         children: [
-          Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 5, 0, 0)),
+          Padding(padding: EdgeInsets.fromLTRB(0, 125.h, 0, 0)),
           Expanded(
             child: PageView.builder(
               controller: _pageController,
               itemCount: _images.length,
+              physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return Image.asset(
-                  width: QueryWidth / 2,
-                  height: QueryHeight / 2,
+                  width: 0.5.sh,
+                  height: 0.5.sw,
                   _images[index],
                 );
               },
@@ -69,35 +73,43 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           Container(
             alignment: Alignment.center,
-            height: QueryHeight / 20,
-            width: QueryWidth / 1.05,
+            height: 0.1.sh,
+            width: 0.95.sw,
             child: Expanded(
               child: PageView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 controller: _descriptionController,
                 itemCount: descriptonList.length,
                 itemBuilder: (context, index) {
-                  return Center(child: Text(descriptonList[index]));
+                  return Center(
+                      child: Text(
+                    descriptonList[index],
+                    style: TextStyle(fontSize: 14.sp),
+                  ));
                 },
               ),
             ),
           ),
-          Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 8, 0, 0)),
+          Padding(padding: EdgeInsets.fromLTRB(0, 75.h, 0, 0)),
           Container(
-            width: QueryWidth / 1.1,
+            width: 0.95.sw,
             child: ElevatedButton(
               onPressed: () {
                 _nextImage(context);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 61, 122, 228), // Цвет кнопки
-                minimumSize: Size(double.infinity, 50), // Ширина на весь экран
+                minimumSize: Size(double.infinity.w, 50.h), // Ширина на весь экран
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12), // <-- Radius
+                  borderRadius: BorderRadius.circular(12.r), // <-- Radius
                 ),
               ),
               child: Text(
                 'Далее',
-                style: TextStyle(fontSize: 16, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -108,14 +120,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 onTap: () async {
                   try {
                     await uLaunch.launchUrl(
-                      Uri(scheme: "https", host: "policies.google.com", path: "/terms?hl=ru"),
+                      Uri(scheme: "https", host: policyHost, path: policyPath),
                       mode: uLaunch.LaunchMode.externalApplication,
                     );
                   } catch (e) {}
                 },
                 child: Text(
                   "Условия использования",
-                  style: TextStyle(fontSize: QueryWidth / 30, color: Colors.grey),
+                  style: TextStyle(fontSize: 12.sp, color: Colors.grey),
                 ),
               ),
               Text(
@@ -126,19 +138,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 onTap: () async {
                   try {
                     await uLaunch.launchUrl(
-                      Uri(scheme: "https", host: "ru-ru.facebook.com", path: "/payments_terms/privacy"),
+                      Uri(scheme: "https", host: termHost, path: policyPath),
                       mode: uLaunch.LaunchMode.externalApplication,
                     );
                   } catch (e) {}
                 },
                 child: Text(
                   "Политика конфиденциальности",
-                  style: TextStyle(fontSize: QueryWidth / 30, color: Colors.grey),
+                  style: TextStyle(fontSize: 12.sp, color: Colors.grey),
                 ),
               )
             ],
           ),
-          Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 15, 0, 0))
+          Padding(padding: EdgeInsets.fromLTRB(0, 50.h, 0, 0))
         ],
       ),
     );

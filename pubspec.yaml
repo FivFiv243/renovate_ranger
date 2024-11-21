@@ -11,14 +11,13 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter
+    sdk: flutter   
   #UI
+  flutter_screenutil: ^5.9.3
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.14
   fl_chart: ^0.69.0
-  #smt
-  flutter_screenutil: ^5.9.3
-
+  flutter_localization: ^0.2.2
   #Logic
   in_app_review: ^2.0.9
   url_launcher: ^6.3.1
@@ -40,35 +39,42 @@ flutter:
 
 
   assets:
-    - lib/assets/images/onboarding1.png
-    - lib/assets/images/onboarding2.png
-    - lib/assets/images/onboarding3.png
-    - lib/assets/images/toolsfiller.x2.png
-    - lib/assets/images/contactsfiller.x2.png
-    - lib/assets/images/projectsfiller.x2.png
-    - lib/assets/images/advice_image.jpg
+    - assets/images/onboarding1.png
+    - assets/images/onboarding2.png
+    - assets/images/onboarding3.png
+    - assets/images/toolsfiller.x2.png
+    - assets/images/contactsfiller.x2.png
+    - assets/images/projectsfiller.x2.png
+    - assets/images/advice_image.jpg
 
     #icons
-    - lib/assets/icons/Notes/Document Add.svg
-    - lib/assets/icons/Arrows/Round Arrow Left.svg
-    - lib/assets/icons/Arrows/Round Arrow Right.svg
+    - assets/icons/Notes/Document Add.svg
+    - assets/icons/Arrows/Round Arrow Left.svg
+    - assets/icons/Arrows/Round Arrow Right.svg
     #Settings screen Icons
-    - lib/assets/icons/Hands/Hand Stars.svg
-    - lib/assets/icons/School/Notebook Bookmark.svg
-    - lib/assets/icons/Security/Lock Unlocked.svg
+    - assets/icons/Hands/Hand Stars.svg
+    - assets/icons/School/Notebook Bookmark.svg
+    - assets/icons/Security/Lock Unlocked.svg
     #Appbar
-    - lib/assets/icons/Essentional, UI/Sort.svg
+    - assets/icons/Essentional, UI/Sort.svg
     #add project screen
-    - lib/assets/icons/download/Download Minimalistic.svg
+    - assets/icons/download/Download Minimalistic.svg
     #contacts screen
-    - lib/assets/icons/Call/Phone Rounded.svg
-    - lib/assets/icons/email/Property 1=Linear, Property 2=Messages, Conversation, Property 3=Letter.svg
-    - lib/assets/icons/Essentional, UI/Menu Dots.svg
+    - assets/icons/Call/Phone Rounded.svg
+    - assets/icons/email/Property 1=Linear, Property 2=Messages, Conversation, Property 3=Letter.svg
+    - assets/icons/Essentional, UI/Menu Dots.svg
     #add tools
-    - lib/assets/icons/hammer/hammer=off.svg
-    - lib/assets/icons/nail/nail=off.svg
-    - lib/assets/icons/hammer/hammer=on.svg
-    - lib/assets/icons/nail/nail=on.svg
+    - assets/icons/hammer/hammer=off.svg
+    - assets/icons/nail/nail=off.svg
+    - assets/icons/hammer/hammer=on.svg
+    - assets/icons/nail/nail=on.svg
     #tools screen
-    - lib/assets/icons/Essentional, UI/Add Circle.svg
-    - lib/assets/icons/Essentional, UI/Minus Circle.svg
+    - assets/icons/Essentional, UI/Add Circle.svg
+    - assets/icons/Essentional, UI/Minus Circle.svg
+
+    #Fonts
+  fonts:
+    - family: Alegreya
+      fonts:
+        - asset: assets/fonts/AlegreyaSans-Black.ttf
+        - asset: assets/fonts/AlegreyaSans-Bold.ttf

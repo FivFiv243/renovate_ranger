@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:renovate_ranger/features/database/hive_base.dart';
 import 'package:renovate_ranger/features/models/item_class.dart';
+import 'package:renovate_ranger/main.dart';
 
 class AddToolsScreen extends StatefulWidget {
   const AddToolsScreen({super.key, required this.toolsList, required this.Typeopen});
@@ -47,8 +49,6 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
   }
 
   Widget build(BuildContext context) {
-    final QueryHeight = MediaQuery.of(context).size.height;
-    final QueryWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -56,7 +56,7 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
           shadowColor: Colors.black.withOpacity(0.4),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(12),
+              bottom: Radius.circular(12).w,
             ),
           ),
           title: Text('Добавление пункта'),
@@ -64,17 +64,17 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
         ),
         body: SingleChildScrollView(
             child: SizedBox(
-          height: QueryHeight - QueryHeight / 9,
+          height: 720.h,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0).w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  padding: EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(16.0).w,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12).w,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.1),
@@ -91,111 +91,122 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                           child: typeChanger == 2
                               ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                                   GestureDetector(
-                                    child: SvgPicture.asset(
-                                      'lib/assets/icons/hammer/hammer=off.svg',
-                                      width: 32,
-                                    ),
+                                    child: Row(children: [
+                                      SvgPicture.asset(
+                                        'assets/icons/hammer/hammer=off.svg',
+                                        width: 32.w,
+                                      ),
+                                      Padding(padding: EdgeInsets.fromLTRB(5.w, 0, 0, 0)),
+                                      Text(
+                                        'Инструмент',
+                                        style: TextStyle(fontSize: 16.sp),
+                                      ),
+                                    ]),
                                     onTap: () {
                                       setState(() {
                                         typeChanger = 1;
                                       });
                                     },
                                   ),
-                                  Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 90, 0, 0, 0)),
-                                  Text(
-                                    'Инструмент',
-                                    style: TextStyle(fontSize: QueryWidth / 20),
-                                  ),
-                                  Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 17.5, 0, 0, 0)),
+                                  Padding(padding: EdgeInsets.fromLTRB(12.w, 0, 0, 0)),
                                   GestureDetector(
-                                    child: SvgPicture.asset(
-                                      'lib/assets/icons/nail/nail=on.svg',
-                                      width: 32,
-                                    ),
+                                    child: Row(children: [
+                                      SvgPicture.asset(
+                                        'assets/icons/nail/nail=on.svg',
+                                        width: 32.w,
+                                      ),
+                                      Padding(padding: EdgeInsets.fromLTRB(7.5.w, 0, 0, 0)),
+                                      Text(
+                                        "Материал",
+                                        style: TextStyle(fontSize: 16.sp),
+                                      )
+                                    ]),
                                     onTap: () {
                                       setState(() {
                                         typeChanger = 0;
                                       });
                                     },
                                   ),
-                                  Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 70, 0, 0, 0)),
-                                  Text(
-                                    "Материал",
-                                    style: TextStyle(fontSize: QueryWidth / 20),
-                                  )
                                 ])
                               : typeChanger == 1
                                   ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                                       GestureDetector(
-                                        child: SvgPicture.asset(
-                                          'lib/assets/icons/hammer/hammer=on.svg',
-                                          width: 32,
-                                        ),
-                                        onTap: () {
-                                          setState(() {
-                                            typeChanger = 0;
-                                          });
-                                        },
-                                      ),
-                                      Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 90, 0, 0, 0)),
-                                      Text(
-                                        'Инструмент',
-                                        style: TextStyle(fontSize: QueryWidth / 20),
-                                      ),
-                                      Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 17.5, 0, 0, 0)),
+                                          onTap: () {
+                                            setState(() {
+                                              typeChanger = 0;
+                                            });
+                                          },
+                                          child: Row(children: [
+                                            SvgPicture.asset(
+                                              'assets/icons/hammer/hammer=on.svg',
+                                              width: 32.w,
+                                            ),
+                                            Padding(padding: EdgeInsets.fromLTRB(5.w, 0, 0, 0)),
+                                            Text(
+                                              'Инструмент',
+                                              style: TextStyle(fontSize: 16.sp),
+                                            ),
+                                          ])),
+                                      Padding(padding: EdgeInsets.fromLTRB(16.w, 0, 0, 0)),
                                       GestureDetector(
-                                        child: SvgPicture.asset(
-                                          'lib/assets/icons/nail/nail=off.svg',
-                                          width: 32,
-                                        ),
+                                        child: Row(children: [
+                                          SvgPicture.asset(
+                                            'assets/icons/nail/nail=off.svg',
+                                            width: 32.w,
+                                          ),
+                                          Padding(padding: EdgeInsets.fromLTRB(5.w, 0, 0, 0)),
+                                          Text(
+                                            "Материал",
+                                            style: TextStyle(fontSize: 16.sp),
+                                          )
+                                        ]),
                                         onTap: () {
                                           setState(() {
                                             typeChanger = 2;
                                           });
                                         },
                                       ),
-                                      Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 90, 0, 0, 0)),
-                                      Text(
-                                        "Материал",
-                                        style: TextStyle(fontSize: QueryWidth / 20),
-                                      )
                                     ])
                                   : Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                                       GestureDetector(
-                                        child: SvgPicture.asset(
-                                          'lib/assets/icons/hammer/hammer=off.svg',
-                                          width: 32,
-                                        ),
+                                        child: Row(children: [
+                                          SvgPicture.asset(
+                                            'assets/icons/hammer/hammer=off.svg',
+                                            width: 32.w,
+                                          ),
+                                          Padding(padding: EdgeInsets.fromLTRB(5.w, 0, 0, 0)),
+                                          Text(
+                                            'Инструмент',
+                                            style: TextStyle(fontSize: 16.sp),
+                                          ),
+                                        ]),
                                         onTap: () {
                                           setState(() {
                                             typeChanger = 1;
                                           });
                                         },
                                       ),
-                                      Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 90, 0, 0, 0)),
-                                      Text(
-                                        'Инструмент',
-                                        style: TextStyle(fontSize: QueryWidth / 20),
-                                      ),
-                                      Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 17.5, 0, 0, 0)),
+                                      Padding(padding: EdgeInsets.fromLTRB(16.w, 0, 0, 0)),
                                       GestureDetector(
-                                        child: SvgPicture.asset(
-                                          'lib/assets/icons/nail/nail=off.svg',
-                                          width: 32,
-                                        ),
+                                        child: Row(children: [
+                                          SvgPicture.asset(
+                                            'assets/icons/nail/nail=off.svg',
+                                            width: 32.w,
+                                          ),
+                                          Padding(padding: EdgeInsets.fromLTRB(5.w, 0, 0, 0)),
+                                          Text(
+                                            "Материал",
+                                            style: TextStyle(fontSize: 16.sp),
+                                          )
+                                        ]),
                                         onTap: () {
                                           setState(() {
                                             typeChanger = 2;
                                           });
                                         },
                                       ),
-                                      Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 90, 0, 0, 0)),
-                                      Text(
-                                        "Материал",
-                                        style: TextStyle(fontSize: QueryWidth / 20),
-                                      )
                                     ])),
-                      Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 90, 0, 0)),
+                      Padding(padding: EdgeInsets.fromLTRB(0, 5.h, 0, 0)),
                       Container(
                         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                           Radio(
@@ -208,11 +219,11 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                             },
                             activeColor: Colors.blue, // Change the active radio button color here
                             fillColor: MaterialStateProperty.all(Colors.blue), // Change the fill color when selected
-                            splashRadius: 20,
+                            splashRadius: 20.r,
                           ),
-                          Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 60, 0, 0, 0)),
-                          Text('В наличии', style: TextStyle(fontSize: QueryWidth / 22.5)),
-                          Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 23, 0, 0, 0)),
+                          Padding(padding: EdgeInsets.fromLTRB(10.w, 0, 0, 0)),
+                          Text('В наличии', style: TextStyle(fontSize: 16.sp)),
+                          Padding(padding: EdgeInsets.fromLTRB(11.w, 0, 0, 0)),
                           Radio(
                             value: 2,
                             groupValue: included,
@@ -223,21 +234,21 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                             },
                             activeColor: Colors.blue, // Change the active radio button color here
                             fillColor: MaterialStateProperty.all(Colors.blue), // Change the fill color when selected
-                            splashRadius: 20,
+                            splashRadius: 20.r,
                           ),
-                          Text('Надо купить', style: TextStyle(fontSize: QueryWidth / 22.5)),
+                          Text('Надо купить', style: TextStyle(fontSize: 16.sp)),
                         ]),
                       ),
                       // Поле для названия проекта
                       Text(
                         'Название',
-                        style: TextStyle(color: Colors.blue, fontSize: 16),
+                        style: TextStyle(color: Colors.blue, fontSize: 16.sp),
                       ),
-                      SizedBox(height: QueryHeight / 90),
+                      SizedBox(height: 5.h),
                       Container(
                         decoration: BoxDecoration(
-                          border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(width: 0.w, color: const Color.fromARGB(0, 0, 0, 0)),
+                          borderRadius: BorderRadius.circular(8).w,
                           color: Colors.grey.withOpacity(0.1),
                         ),
                         child: TextField(
@@ -252,18 +263,18 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                         ),
                       ),
 
-                      SizedBox(height: QueryHeight / 45),
+                      SizedBox(height: 10.h),
 
                       // Поле для описания проекта
                       Text(
                         'Стоимость',
-                        style: TextStyle(color: Colors.blue, fontSize: 16),
+                        style: TextStyle(color: Colors.blue, fontSize: 16.sp),
                       ),
-                      SizedBox(height: QueryHeight / 90),
+                      SizedBox(height: 5.h),
                       Container(
                         decoration: BoxDecoration(
-                          border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(width: 0.w, color: const Color.fromARGB(0, 0, 0, 0)),
+                          borderRadius: BorderRadius.circular(8).w,
                           color: Colors.grey.withOpacity(0.1),
                         ),
                         child: TextField(
@@ -277,23 +288,23 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: QueryHeight / 45),
+                      SizedBox(height: 10.h),
                       Text(
                         'Колличество',
-                        style: TextStyle(color: Colors.blue, fontSize: 16),
+                        style: TextStyle(color: Colors.blue, fontSize: 16.sp),
                       ),
-                      SizedBox(height: QueryHeight / 90),
+                      SizedBox(height: 5.h),
                       Container(
-                        width: QueryWidth / 1.05,
+                        width: 0.9.sw,
                         child: Row(
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(width: 0.w, color: const Color.fromARGB(0, 0, 0, 0)),
+                                borderRadius: BorderRadius.circular(8).w,
                                 color: Colors.grey.withOpacity(0.1),
                               ),
-                              width: QueryWidth / 2,
+                              width: 0.5.sw,
                               child: TextField(
                                 keyboardType: TextInputType.number,
                                 controller: quantityController,
@@ -303,17 +314,17 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                                 ),
                               ),
                             ),
-                            Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 50, 0, 0, 0)),
+                            Padding(padding: EdgeInsets.fromLTRB(7.5.w, 0, 0, 0)),
                             Container(
                                 decoration: BoxDecoration(
-                                  border: Border.all(width: 0, color: const Color.fromARGB(0, 146, 30, 30)),
-                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(width: 0.w, color: const Color.fromARGB(0, 146, 30, 30)),
+                                  borderRadius: BorderRadius.circular(8).w,
                                   color: Colors.grey.withOpacity(0.1),
                                 ),
-                                width: QueryWidth / 3.3,
+                                width: 0.3.sw,
                                 child: DropdownMenu(
                                     hintText: typeItem,
-                                    menuHeight: QueryHeight / 2,
+                                    menuHeight: 0.5.sh,
                                     inputDecorationTheme: InputDecorationTheme(
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -337,13 +348,13 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(height: QueryHeight / 45),
+                      SizedBox(height: 8.h),
                       // Поле для комментария
                       Text(
                         'Комментарий',
                         style: TextStyle(color: Colors.blue, fontSize: 16),
                       ),
-                      SizedBox(height: QueryHeight / 90),
+                      SizedBox(height: 5.h),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
@@ -351,6 +362,8 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                           color: Colors.grey.withOpacity(0.1),
                         ),
                         child: TextField(
+                          minLines: 1,
+                          maxLines: 3,
                           controller: commentController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -373,7 +386,7 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                           quantityController.text = '0';
                         }
                         widget.toolsList.add(ItemClass(mtool: typeChanger, isIn: included, name: nameController.text.trim(), price: priceController.text.trim(), quantity: double.parse(quantityController.text.trim()), comment: commentController.text.trim(), typeCount: typeItem));
-                        HiveBase().PutToolsInBase(widget.toolsList);
+                        HiveBase().PutToolsOrMaterialInBase(widget.toolsList);
                         Navigator.pop(context);
                       } else {
                         widget.toolsList.removeAt(widget.Typeopen);
@@ -381,16 +394,16 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                           quantityController.text = '0';
                         }
                         widget.toolsList.add(ItemClass(mtool: typeChanger, isIn: included, name: nameController.text.trim(), price: priceController.text.trim(), quantity: double.parse(quantityController.text.trim()), comment: commentController.text.trim(), typeCount: typeItem));
-                        HiveBase().PutToolsInBase(widget.toolsList);
+                        HiveBase().PutToolsOrMaterialInBase(widget.toolsList);
                         Navigator.pop(context);
                       }
                     } else {}
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ((nameController.text.trim() != '') & (included != 0) & (typeChanger != 0) & (priceController.text.trim() != '') & (quantityController.text.trim() != '') & (typeItem != '') & (typeItem != null)) ? Colors.blue : Colors.grey.shade300,
-                    minimumSize: Size(double.infinity, 50),
+                    minimumSize: Size(double.infinity.w, 50.h),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8).w,
                     ),
                   ),
                   child: Text(

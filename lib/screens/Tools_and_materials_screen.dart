@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:renovate_ranger/features/database/hive_base.dart';
+import 'package:renovate_ranger/main.dart';
 import 'package:renovate_ranger/screens/add_tools_screen.dart';
 
 class ToolsAndMaterialsScreen extends StatefulWidget {
@@ -19,12 +21,10 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
   @override
   void initState() {
     super.initState();
-    Listtools = HiveBase().GetToolsFromBase();
+    Listtools = HiveBase().GetToolsOrMaterialFromBase();
   }
 
   Widget build(BuildContext context) {
-    final QueryWidth = MediaQuery.of(context).size.width;
-    final QueryHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Colors.white,
@@ -32,12 +32,12 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
             shadowColor: Colors.black.withOpacity(0.4),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(12),
+                bottom: Radius.circular(12).w,
               ),
             ),
             title: Text(
               'Инструменты и материалы',
-              style: TextStyle(fontSize: QueryWidth / 20),
+              style: TextStyle(fontSize: 14.sp),
             ),
             centerTitle: true,
             actions: [
@@ -52,11 +52,11 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                         .then((_) => setState(() {}));
                   },
                   child: SvgPicture.asset(
-                    'lib/assets/icons/Notes/Document Add.svg',
+                    'assets/icons/Notes/Document Add.svg',
                     width: 30,
                     height: 30,
                   )),
-              Padding(padding: EdgeInsets.fromLTRB(0, 0, QueryWidth / 30, 0))
+              Padding(padding: EdgeInsets.fromLTRB(0, 0, 5.w, 0))
             ]),
         body: Listtools.length == 0
             ? Column(
@@ -65,13 +65,13 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                   Center(
                     child: Column(
                       children: [
-                        Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 5, 0, 0)),
+                        Padding(padding: EdgeInsets.fromLTRB(0, 20.h, 0, 0)),
                         SizedBox(
-                          width: QueryWidth / 1.1,
-                          height: QueryHeight / 4,
-                          child: Image.asset('lib/assets/images/toolsfiller.x2.png'),
+                          width: 0.95.sh,
+                          height: 0.75.sw,
+                          child: Image.asset('assets/images/toolsfiller.x2.png'),
                         ),
-                        SizedBox(height: QueryHeight / 90),
+                        SizedBox(height: 5.h),
                         Text(
                           'Список пуст.',
                           style: TextStyle(
@@ -86,19 +86,19 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                 ],
               )
             : Container(
-                height: QueryHeight,
+                height: 1.sh,
                 child: Column(children: [
-                  Padding(padding: EdgeInsets.all(QueryWidth / 60)),
+                  Padding(padding: EdgeInsets.all(7.5).w),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       OutlinedButton(
                           style: OutlinedButton.styleFrom(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(10.0).w,
                             ),
                             backgroundColor: filterbuttonType == 1 ? Colors.blue : const Color.fromARGB(0, 255, 193, 7),
-                            side: BorderSide(width: 2.0, color: Colors.blue),
+                            side: BorderSide(width: 2.0.w, color: Colors.blue),
                           ),
                           onPressed: () {
                             setState(() {
@@ -111,16 +111,16 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                           },
                           child: Text(
                             "В наличии",
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: Colors.black, fontSize: 12.sp),
                           )),
-                      Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 90, 0, 0, 0)),
+                      Padding(padding: EdgeInsets.fromLTRB(5.w, 0, 0, 0)),
                       OutlinedButton(
                           style: OutlinedButton.styleFrom(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(10.0).w,
                             ),
                             backgroundColor: filterbuttonType == 2 ? Colors.blue : const Color.fromARGB(0, 255, 193, 7),
-                            side: BorderSide(width: 2.0, color: Colors.blue),
+                            side: BorderSide(width: 2.0.w, color: Colors.blue),
                           ),
                           onPressed: () {
                             setState(() {
@@ -133,23 +133,23 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                           },
                           child: Text(
                             "Надо купить",
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: Colors.black, fontSize: 12.sp),
                           )),
-                      Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 60, 0, 0, 0)),
+                      Padding(padding: EdgeInsets.fromLTRB(7.5.w, 0, 0, 0)),
                       Container(
                           decoration: BoxDecoration(
                             border: Border.all(width: 0, color: const Color.fromARGB(0, 146, 30, 30)),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8).w,
                             color: Colors.grey.withOpacity(0.1),
                           ),
-                          width: QueryWidth / 3.3,
+                          width: 0.30.sw,
                           child: DropdownMenu(
                               hintText: filterdrop == 0
                                   ? "Все"
                                   : filterdrop == 1
                                       ? "Материалы"
                                       : "Инструменты",
-                              menuHeight: QueryHeight / 2,
+                              menuHeight: 0.5.sh,
                               inputDecorationTheme: InputDecorationTheme(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -169,22 +169,24 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                               ])),
                     ],
                   ),
-                  Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 60, 0, 0)),
+                  Padding(padding: EdgeInsets.fromLTRB(0, 7.5.h, 0, 0)),
                   Expanded(
+                      child: Container(
+                    width: 0.95.sw,
                     child: ListView.separated(
                       itemCount: Listtools.length,
                       separatorBuilder: (context, index) {
-                        return (((Listtools[index].isIn == filterbuttonType) || (filterbuttonType == 0)) && ((Listtools[index].mtool == filterdrop) || (filterdrop == 0))) ? Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 60, 0, 0)) : Container();
+                        return (((Listtools[index].isIn == filterbuttonType) || (filterbuttonType == 0)) && ((Listtools[index].mtool == filterdrop) || (filterdrop == 0))) ? Padding(padding: EdgeInsets.fromLTRB(0, 7.5.h, 0, 0)) : Container();
                       },
                       itemBuilder: (context, index) {
                         final quantityController = TextEditingController();
                         return (((Listtools[index].isIn == filterbuttonType) || (filterbuttonType == 0)) && ((Listtools[index].mtool == filterdrop) || (filterdrop == 0)))
                             ? Container(
-                                width: QueryWidth / 1.1,
-                                padding: EdgeInsets.all(QueryHeight / 60),
+                                width: 0.8.sw,
+                                padding: EdgeInsets.all(7.5).w,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(12).w,
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black.withOpacity(0.1),
@@ -199,8 +201,8 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Listtools[index].mtool == 2 ? SvgPicture.asset('lib/assets/icons/nail/nail=off.svg') : SvgPicture.asset('lib/assets/icons/hammer/hammer=off.svg'),
-                                        Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 45, 0, 0, 0)),
+                                        Listtools[index].mtool == 2 ? SvgPicture.asset('assets/icons/nail/nail=off.svg') : SvgPicture.asset('assets/icons/hammer/hammer=off.svg'),
+                                        Padding(padding: EdgeInsets.fromLTRB(10.w, 0, 0, 0)),
                                         Text(Listtools[index].name),
                                         Spacer(),
                                         Radio(
@@ -210,11 +212,11 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                               setState(() {
                                                 Listtools[index].isIn = value;
                                               });
-                                              HiveBase().PutToolsInBase(Listtools);
+                                              HiveBase().PutToolsOrMaterialInBase(Listtools);
                                             }),
-                                        Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 45, 0, 0, 0)),
+                                        Padding(padding: EdgeInsets.fromLTRB(10.w, 0, 0, 0)),
                                         Text('В наличии'),
-                                        Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 10, 0, 0, 0)),
+                                        Padding(padding: EdgeInsets.fromLTRB(0.1.sw, 0, 0, 0)),
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
@@ -223,12 +225,12 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                                   builder: (BuildContext context) {
                                                     return Dialog(
                                                       shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(15.0),
+                                                        borderRadius: BorderRadius.circular(16.0).w,
                                                       ),
                                                       child: Container(
-                                                        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                                                        padding: EdgeInsets.symmetric(vertical: 20.0.h, horizontal: 20.0.w),
                                                         decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(15.0),
+                                                          borderRadius: BorderRadius.circular(16.0).w,
                                                         ),
                                                         child: Column(
                                                           mainAxisSize: MainAxisSize.min,
@@ -238,7 +240,7 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                                               child: Text(
                                                                 "Редактировать",
                                                                 style: TextStyle(
-                                                                  fontSize: QueryWidth / 20,
+                                                                  fontSize: 16.sp,
                                                                   fontWeight: FontWeight.w600,
                                                                   color: Colors.black87,
                                                                 ),
@@ -251,7 +253,7 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                                             Divider(
                                                               color: Colors.grey.shade300,
                                                               thickness: 1.0,
-                                                              height: 20.0,
+                                                              height: 20.0.h,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -268,7 +270,7 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                                                 child: Text(
                                                                   "Удалить",
                                                                   style: TextStyle(
-                                                                    fontSize: QueryWidth / 20,
+                                                                    fontSize: 16.sp,
                                                                     fontWeight: FontWeight.w500,
                                                                     color: Colors.red,
                                                                   ),
@@ -282,9 +284,9 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                                   },
                                                 );
                                               });
-                                              HiveBase().PutToolsInBase(Listtools);
+                                              HiveBase().PutToolsOrMaterialInBase(Listtools);
                                             },
-                                            child: SvgPicture.asset('lib/assets/icons/Essentional, UI/Menu Dots.svg'))
+                                            child: SvgPicture.asset('assets/icons/Essentional, UI/Menu Dots.svg'))
                                       ],
                                     ),
                                     Row(
@@ -295,17 +297,17 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                             if (Listtools[index].quantity > 0) {
                                               Listtools[index].quantity = Listtools[index].quantity - 1;
                                               setState(() {});
-                                              HiveBase().PutToolsInBase(Listtools);
+                                              HiveBase().PutToolsOrMaterialInBase(Listtools);
                                             }
                                           },
-                                          child: SvgPicture.asset('lib/assets/icons/Essentional, UI/Minus Circle.svg'),
+                                          child: SvgPicture.asset('assets/icons/Essentional, UI/Minus Circle.svg'),
                                         ),
-                                        Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 90, 0, 0, 0)),
+                                        Padding(padding: EdgeInsets.fromLTRB(5.w, 0, 0, 0)),
                                         Container(
-                                          width: QueryWidth / 5,
+                                          width: 0.2.sw,
                                           decoration: BoxDecoration(
-                                            border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                                            borderRadius: BorderRadius.circular(8),
+                                            border: Border.all(width: 0.w, color: const Color.fromARGB(0, 0, 0, 0)),
+                                            borderRadius: BorderRadius.circular(8).w,
                                             color: Colors.grey.withOpacity(0.1),
                                           ),
                                           child: TextField(
@@ -320,7 +322,7 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                                 Listtools[index].quantity = double.parse(quantityController.text.trim());
                                                 quantityController.text = '';
                                               });
-                                              HiveBase().PutToolsInBase(Listtools);
+                                              HiveBase().PutToolsOrMaterialInBase(Listtools);
                                             },
                                             keyboardType: TextInputType.number,
                                             controller: quantityController,
@@ -330,16 +332,16 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                             ),
                                           ),
                                         ),
-                                        Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 90, 0, 0, 0)),
+                                        Padding(padding: EdgeInsets.fromLTRB(5.w, 0, 0, 0)),
                                         GestureDetector(
                                           onTap: () {
                                             if (Listtools[index].quantity > -9000) {
                                               Listtools[index].quantity = Listtools[index].quantity + 1;
                                               setState(() {});
-                                              HiveBase().PutToolsInBase(Listtools);
+                                              HiveBase().PutToolsOrMaterialInBase(Listtools);
                                             }
                                           },
-                                          child: SvgPicture.asset('lib/assets/icons/Essentional, UI/Add Circle.svg'),
+                                          child: SvgPicture.asset('assets/icons/Essentional, UI/Add Circle.svg'),
                                         ),
                                         Spacer(),
                                         Radio(
@@ -349,9 +351,9 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                               setState(() {
                                                 Listtools[index].isIn = value;
                                               });
-                                              HiveBase().PutToolsInBase(Listtools);
+                                              HiveBase().PutToolsOrMaterialInBase(Listtools);
                                             }),
-                                        Padding(padding: EdgeInsets.fromLTRB(QueryWidth / 45, 0, 0, 0)),
+                                        Padding(padding: EdgeInsets.fromLTRB(10.w, 0, 0, 0)),
                                         Text('Надо купить'),
                                         Spacer()
                                       ],
@@ -361,7 +363,7 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                             : Container();
                       },
                     ),
-                  )
+                  ))
                 ])));
   }
 }

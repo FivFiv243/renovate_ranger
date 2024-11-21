@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:renovate_ranger/features/designed_widgets/customDialog.dart';
 
 class SettingsItem extends StatefulWidget {
   const SettingsItem({
@@ -21,10 +23,10 @@ class _SettingsItemState extends State<SettingsItem> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        padding: EdgeInsets.symmetric(vertical: 16.w, horizontal: 16.h),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12).w,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.05),
@@ -39,15 +41,15 @@ class _SettingsItemState extends State<SettingsItem> {
               child: Text(
                 widget.title,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   color: Colors.black87,
                 ),
               ),
             ),
             SvgPicture.asset(
               widget.svgname,
-              width: 32,
-              height: 32,
+              width: 32.w,
+              height: 32.h,
             )
           ],
         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:renovate_ranger/features/database/hive_base.dart';
 import 'package:renovate_ranger/features/models/finance.dart';
+import 'package:renovate_ranger/main.dart';
 
 class AddFinanceScreen extends StatefulWidget {
   AddFinanceScreen({super.key, required this.TypeOpen, required this.financeList});
@@ -32,8 +34,6 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
   }
 
   Widget build(BuildContext context) {
-    final QueryWidth = MediaQuery.of(context).size.width;
-    final QueryHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -41,7 +41,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
           shadowColor: Colors.black.withOpacity(0.4),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(12),
+              bottom: Radius.circular(12).w,
             ),
           ),
           title: Text('Новая запись'),
@@ -50,16 +50,16 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
         body: SingleChildScrollView(
           reverse: true,
           child: Container(
-            height: QueryHeight / 1.135,
+            height: 0.880.sh,
             child: Column(children: [
               Center(
                 child: Padding(
-                  padding: EdgeInsets.all(QueryHeight / 60),
+                  padding: EdgeInsets.all(7.5).w,
                   child: Container(
-                    padding: EdgeInsets.all(QueryHeight / 60),
+                    padding: EdgeInsets.all(7.5).w,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10).w,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.1),
@@ -75,13 +75,13 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                         // Поле "Название"
                         Text(
                           "Название",
-                          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                          style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
                         ),
-                        SizedBox(height: QueryHeight / 100),
+                        SizedBox(height: 5.h),
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8).w,
                             color: Colors.grey.withOpacity(0.1),
                           ),
                           child: TextField(
@@ -89,7 +89,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                             decoration: InputDecoration(hintText: "  Название", hintStyle: TextStyle(color: Colors.grey[400]), border: InputBorder.none),
                           ),
                         ),
-                        SizedBox(height: QueryHeight / 40),
+                        SizedBox(height: 12.5.h),
 
                         // Поля "Сумма" и "Тип"
                         Row(
@@ -100,13 +100,13 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                                 children: [
                                   Text(
                                     "Сумма",
-                                    style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                                    style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
                                   ),
-                                  SizedBox(height: QueryHeight / 100),
+                                  SizedBox(height: 5.h),
                                   Container(
                                     decoration: BoxDecoration(
-                                      border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(width: 0.w, color: const Color.fromARGB(0, 0, 0, 0)),
+                                      borderRadius: BorderRadius.circular(8).w,
                                       color: Colors.grey.withOpacity(0.1),
                                     ),
                                     child: TextField(
@@ -118,20 +118,20 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                                 ],
                               ),
                             ),
-                            SizedBox(width: QueryWidth / 20),
+                            SizedBox(width: 10.w),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     "Тип",
-                                    style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                                    style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
                                   ),
-                                  SizedBox(height: QueryHeight / 100),
+                                  SizedBox(height: 5.w),
                                   Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                                      borderRadius: BorderRadius.circular(8),
+                                      borderRadius: BorderRadius.circular(8).w,
                                       color: Colors.grey.withOpacity(0.1),
                                     ),
                                     child: DropdownButtonFormField<String>(
@@ -156,24 +156,25 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: QueryHeight / 40),
+                        SizedBox(height: 15.h),
 
                         // Поле "Дата"
                         Text(
                           "Дата",
-                          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                          style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
                         ),
-                        SizedBox(height: QueryHeight / 100),
+                        SizedBox(height: 5.h),
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8).w,
                             color: Colors.grey.withOpacity(0.1),
                           ),
                           child: TextField(
                             readOnly: true,
                             onTap: () async {
                               selectedDate = await showDatePicker(
+                                locale: Locale("ru"),
                                 context: context,
                                 initialDate: DateTime.now(),
                                 firstDate: DateTime(2000),
@@ -189,24 +190,24 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                               hintText: selectedDate == null ? "  Дата" : selectedDate.toString(),
                               suffixIcon: Icon(Icons.calendar_today, color: Colors.blue),
                               focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(8).w,
                                 borderSide: BorderSide(color: Colors.blue),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(height: QueryHeight / 40),
+                        SizedBox(height: 10.h),
 
                         // Поле "Комментарий"
                         Text(
                           "Комментарий",
-                          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                          style: TextStyle(fontSize: 15.sp, color: Colors.grey[600]),
                         ),
-                        SizedBox(height: QueryHeight / 100),
+                        SizedBox(height: 5.h),
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8).w,
                             color: Colors.grey.withOpacity(0.1),
                           ),
                           child: TextField(
@@ -216,7 +217,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                             decoration: InputDecoration(hintText: "  Комментарий", hintStyle: TextStyle(color: Colors.grey[400]), border: InputBorder.none),
                           ),
                         ),
-                        SizedBox(height: QueryHeight / 80),
+                        SizedBox(height: 7.5.h),
                       ],
                     ),
                   ),
@@ -224,7 +225,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
               ),
               Spacer(),
               Padding(
-                padding: EdgeInsets.all(QueryHeight / 90),
+                padding: EdgeInsets.all(5.h),
                 child: ElevatedButton(
                   onPressed: () {
                     if (widget.TypeOpen == -1) {
@@ -237,14 +238,14 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: (_nameController.text.trim() != '' && _sumController.text.trim() != '' && _sumController.text.trim() != '' && typefinance != '') ? const Color.fromARGB(255, 61, 122, 228) : Colors.grey,
-                    minimumSize: Size(double.infinity, QueryHeight / 17.5),
+                    minimumSize: Size(double.infinity.w, 50.h),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12).w,
                     ),
                   ),
                   child: Text(
                     'Сохранить',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(fontSize: 16.sp, color: Colors.white),
                   ),
                 ),
               )

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:renovate_ranger/features/advices_data.dart';
+import 'package:renovate_ranger/features/designed_widgets/customDialog.dart';
 
 class AdvicesScreen extends StatefulWidget {
   const AdvicesScreen({super.key});
@@ -13,8 +15,6 @@ final _adviceData = AdvicesData().adviceData;
 class _AdvicesScreenState extends State<AdvicesScreen> {
   @override
   Widget build(BuildContext context) {
-    final QueryWidth = MediaQuery.of(context).size.width;
-    final QueryHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -22,7 +22,7 @@ class _AdvicesScreenState extends State<AdvicesScreen> {
           shadowColor: Colors.black.withOpacity(0.4),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(12),
+              bottom: Radius.circular(12).w,
             ),
           ),
           title: Text("Советы"),
@@ -32,21 +32,21 @@ class _AdvicesScreenState extends State<AdvicesScreen> {
             data: Theme.of(context).copyWith(dividerColor: Colors.transparent), // Убираем линии
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.all(QueryHeight / 45),
+                padding: EdgeInsets.all(10).w,
                 child: Column(children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset('lib/assets/images/advice_image.jpg'),
+                    borderRadius: BorderRadius.circular(8).w,
+                    child: Image.asset('assets/images/advice_image.jpg'),
                   ),
-                  Padding(padding: EdgeInsets.fromLTRB(0, QueryHeight / 45, 0, 0)),
+                  Padding(padding: EdgeInsets.fromLTRB(0, 10.h, 0, 0)),
                   Column(
                     children: _adviceData.map((item) {
                       return Padding(
-                        padding: EdgeInsets.only(bottom: QueryHeight / 70),
+                        padding: EdgeInsets.only(bottom: 6.5.h),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(12).w,
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.1),
@@ -56,10 +56,10 @@ class _AdvicesScreenState extends State<AdvicesScreen> {
                             ],
                           ),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(12).w,
                             child: ExpansionTile(
                               collapsedBackgroundColor: Colors.transparent,
-                              tilePadding: EdgeInsets.symmetric(horizontal: QueryWidth / 45),
+                              tilePadding: EdgeInsets.symmetric(horizontal: 10.h),
                               title: Text(
                                 item['title'],
                                 style: TextStyle(
@@ -68,22 +68,22 @@ class _AdvicesScreenState extends State<AdvicesScreen> {
                                   color: Colors.black87,
                                 ),
                               ),
-                              childrenPadding: EdgeInsets.symmetric(horizontal: QueryWidth / 45, vertical: QueryHeight / 90),
+                              childrenPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                               expandedCrossAxisAlignment: CrossAxisAlignment.start,
                               children: (item['content'] as List<String>).map((point) {
                                 return Padding(
-                                  padding: EdgeInsets.only(bottom: QueryHeight / 90),
+                                  padding: EdgeInsets.only(bottom: 5.h),
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         '- ',
-                                        style: TextStyle(color: Colors.black87, fontSize: 14),
+                                        style: TextStyle(color: Colors.black87, fontSize: 14.sp),
                                       ),
                                       Expanded(
                                         child: Text(
                                           point,
-                                          style: TextStyle(color: Colors.black87, fontSize: 14),
+                                          style: TextStyle(color: Colors.black87, fontSize: 14.sp),
                                         ),
                                       ),
                                     ],
