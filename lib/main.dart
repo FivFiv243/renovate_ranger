@@ -11,10 +11,13 @@ import 'package:renovate_ranger/screens/Tools_and_materials_screen.dart';
 import 'package:renovate_ranger/screens/onboarding_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'features/constans.dart/Pathkeeper.dart' as AppPath;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var dir = await getApplicationDocumentsDirectory();
   Hive.init(dir.path);
+  AppPath.pathDir = dir.path;
   Hive.registerAdapter(ContactClassAdapter());
   Hive.registerAdapter(ItemClassAdapter());
   Hive.registerAdapter(ProjectClassAdapter());

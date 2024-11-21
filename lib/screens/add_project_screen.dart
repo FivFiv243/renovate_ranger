@@ -10,6 +10,8 @@ import 'package:renovate_ranger/features/designed_widgets/customDialog.dart';
 import 'package:renovate_ranger/features/models/projects_class.dart';
 import 'package:path/path.dart' as path;
 
+import '../features/constans.dart/Pathkeeper.dart' as AppPath;
+
 class AddProjectScreen extends StatefulWidget {
   AddProjectScreen({super.key, required this.projectList, required this.typeOpen});
   List<dynamic> projectList;
@@ -26,7 +28,7 @@ String xfilePath = '';
 final _projectnameControler = TextEditingController();
 final _projectdescriptionControler = TextEditingController();
 final _projectcommentControler = TextEditingController();
-var appPath;
+dynamic appPath = AppPath.pathDir;
 int typesetedtool = 1;
 Future<void> setImageProject() async {
   try {
@@ -34,24 +36,17 @@ Future<void> setImageProject() async {
     final file = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (file == null) return;
 
-    // Получение пути приложения
-    final appDir = await getApplicationDocumentsDirectory();
-
     // Копирование файла в директорию приложения
-    final newFilePath = path.join(appDir.path, path.basename(file.path));
+    final newFilePath = path.join(appPath, path.basename(file.path));
     await File(file.path).copy(newFilePath);
 
     // Сохранение относительного пути
-    xfilePath = path.relative(newFilePath, from: appDir.path);
-    xfilePath = newFilePath;
+    xfilePath = path.relative(newFilePath, from: appPath);
     selectedFileName = path.basename(file.path);
+    xfilePath = selectedFileName;
   } catch (e) {
     debugPrint('Error in setImageProject: $e');
   }
-}
-
-void pathsetter() async {
-  appPath = await getApplicationDocumentsDirectory();
 }
 
 List<dynamic> selectedTools = HiveBase().GetToolsOrMaterialFromBase();
@@ -63,7 +58,6 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    pathsetter();
     if (widget.typeOpen == -1) {
       file = null;
       xfilePath = '';
@@ -158,7 +152,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                                   fit: BoxFit.cover,
                                   width: 0.2.sw,
                                   height: 0.125.sh,
-                                  File(xfilePath),
+                                  File(path.join(appPath, xfilePath)),
                                   scale: 0.5,
                                 ),
                               ),

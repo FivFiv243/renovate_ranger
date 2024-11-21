@@ -5,8 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:renovate_ranger/features/constans.dart/routerConst.dart';
 import 'package:renovate_ranger/features/database/hive_base.dart';
-import 'package:renovate_ranger/main.dart';
 import 'package:renovate_ranger/screens/add_project_screen.dart';
+import 'package:path/path.dart' as path;
+
+import '../features/constans.dart/Pathkeeper.dart' as AppPath;
 
 class ProjectsScreen extends StatefulWidget {
   const ProjectsScreen({super.key});
@@ -17,6 +19,7 @@ class ProjectsScreen extends StatefulWidget {
 
 List<dynamic> projectList = HiveBase().GetProjectsFromBase();
 List<dynamic> xfileList = HiveBase().GetXfileFromBase();
+var appPath = AppPath.pathDir;
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
   @override
@@ -237,7 +240,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                                             fit: BoxFit.cover,
                                             width: 0.2.sw,
                                             height: 0.125.sh,
-                                            File(projectList[index].xfilepath),
+                                            File(path.join(appPath, projectList[index].xfilepath)),
                                             scale: 1,
                                           ),
                                         ),
