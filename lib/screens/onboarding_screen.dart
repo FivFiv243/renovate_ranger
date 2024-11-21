@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:renovate_ranger/features/constans.dart/constants.dart';
 import 'package:renovate_ranger/features/database/hive_base.dart';
 import 'package:renovate_ranger/main.dart';
-import 'package:renovate_ranger/screens/navigation_screen.dart';
+import 'package:renovate_ranger/screens/Tools_and_materials_screen.dart';
 import 'package:url_launcher/url_launcher.dart' as uLaunch;
 
 class OnboardingScreen extends StatefulWidget {
@@ -30,7 +30,7 @@ void _nextImage(BuildContext context) {
   } else {
     _currentPage = 0;
     HiveBase().SetBoardingFlag();
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => NavigationScreen()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ToolsAndMaterialsScreen()));
   }
   _pageController.animateToPage(
     _currentPage,

@@ -123,33 +123,4 @@ class HiveBase {
       return {};
     }
   }
-
-  /// Генерация полного пути к файлу
-  String _getFullPath(String relativePath) {
-    return '$appDirectory/$relativePath';
-  }
-
-  /// Сохраняет файл на диск и сохраняет его относительный путь в базе
-  Future<void> saveFile(String relativePath, List<int> fileData) async {
-    final file = File(_getFullPath(relativePath));
-    await file.create(recursive: true);
-    await file.writeAsBytes(fileData);
-
-    final existingPaths = GetXfileFromBase();
-    if (!existingPaths.contains(relativePath)) {
-      existingPaths.add(relativePath);
-      await PutXfileInBase(existingPaths);
-    }
-  }
-
-  /// Загружает файл с диска
-  Future<File?> loadFile(String relativePath) async {
-    final file = File(_getFullPath(relativePath));
-    if (await file.exists()) {
-      return file;
-    } else {
-      debugPrint('File not found: $relativePath');
-      return null;
-    }
-  }
 }

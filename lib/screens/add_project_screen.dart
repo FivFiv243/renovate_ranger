@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:renovate_ranger/features/database/hive_base.dart';
 import 'package:renovate_ranger/features/designed_widgets/customDialog.dart';
 import 'package:renovate_ranger/features/models/projects_class.dart';
-import 'package:renovate_ranger/main.dart';
+import 'package:path/path.dart' as path;
 
 class AddProjectScreen extends StatefulWidget {
   AddProjectScreen({super.key, required this.projectList, required this.typeOpen});
@@ -25,13 +26,32 @@ String xfilePath = '';
 final _projectnameControler = TextEditingController();
 final _projectdescriptionControler = TextEditingController();
 final _projectcommentControler = TextEditingController();
+var appPath;
 int typesetedtool = 1;
-Future setImageProject() async {
+Future<void> setImageProject() async {
   try {
-    file = (await ImagePicker().pickImage(source: ImageSource.gallery))!;
-    xfilePath = file!.path;
-    selectedFileName = file!.name;
-  } catch (e) {}
+    // Выбор изображения из галереи
+    final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (file == null) return;
+
+    // Получение пути приложения
+    final appDir = await getApplicationDocumentsDirectory();
+
+    // Копирование файла в директорию приложения
+    final newFilePath = path.join(appDir.path, path.basename(file.path));
+    await File(file.path).copy(newFilePath);
+
+    // Сохранение относительного пути
+    xfilePath = path.relative(newFilePath, from: appDir.path);
+    xfilePath = newFilePath;
+    selectedFileName = path.basename(file.path);
+  } catch (e) {
+    debugPrint('Error in setImageProject: $e');
+  }
+}
+
+void pathsetter() async {
+  appPath = await getApplicationDocumentsDirectory();
 }
 
 List<dynamic> selectedTools = HiveBase().GetToolsOrMaterialFromBase();
@@ -43,6 +63,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    pathsetter();
     if (widget.typeOpen == -1) {
       file = null;
       xfilePath = '';
@@ -134,7 +155,8 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                             : ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.file(
-                                  width: 0.9.sw,
+                                  fit: BoxFit.cover,
+                                  width: 0.2.sw,
                                   height: 0.125.sh,
                                   File(xfilePath),
                                   scale: 0.5,

@@ -90,6 +90,13 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                       Container(
                           child: typeChanger == 2
                               ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                  Text(
+                                    "1.",
+                                    style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(0.w, 0, 25.w, 0),
+                                  ),
                                   GestureDetector(
                                     child: Row(children: [
                                       SvgPicture.asset(
@@ -130,6 +137,13 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                                 ])
                               : typeChanger == 1
                                   ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                      Text(
+                                        "1.",
+                                        style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.fromLTRB(0.w, 0, 25.w, 0),
+                                      ),
                                       GestureDetector(
                                           onTap: () {
                                             setState(() {
@@ -170,6 +184,13 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                                   : Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                                       GestureDetector(
                                         child: Row(children: [
+                                          Text(
+                                            "1.",
+                                            style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.fromLTRB(0.w, 0, 25.w, 0),
+                                          ),
                                           SvgPicture.asset(
                                             'assets/icons/hammer/hammer=off.svg',
                                             width: 32.w,
@@ -209,6 +230,13 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                       Padding(padding: EdgeInsets.fromLTRB(0, 5.h, 0, 0)),
                       Container(
                         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                          Text(
+                            "2.",
+                            style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0.w, 0, 5.w, 0),
+                          ),
                           Radio(
                             value: 1,
                             groupValue: included,
@@ -222,7 +250,9 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                             splashRadius: 20.r,
                           ),
                           Padding(padding: EdgeInsets.fromLTRB(10.w, 0, 0, 0)),
-                          Text('В наличии', style: TextStyle(fontSize: 16.sp)),
+                          Row(children: [
+                            Text('В наличии', style: TextStyle(fontSize: 16.sp)),
+                          ]),
                           Padding(padding: EdgeInsets.fromLTRB(11.w, 0, 0, 0)),
                           Radio(
                             value: 2,
@@ -240,12 +270,23 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                         ]),
                       ),
                       // Поле для названия проекта
-                      Text(
-                        'Название',
-                        style: TextStyle(color: Colors.blue, fontSize: 16.sp),
-                      ),
+                      Row(children: [
+                        Padding(padding: EdgeInsets.all(6).w),
+                        Text(
+                          "3.",
+                          style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10.w, 0, 0.w, 0),
+                        ),
+                        Text(
+                          'Название',
+                          style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                        ),
+                      ]),
                       SizedBox(height: 5.h),
                       Container(
+                        margin: EdgeInsets.fromLTRB(35.w, 0, 0, 0),
                         decoration: BoxDecoration(
                           border: Border.all(width: 0.w, color: const Color.fromARGB(0, 0, 0, 0)),
                           borderRadius: BorderRadius.circular(8).w,
@@ -266,12 +307,23 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                       SizedBox(height: 10.h),
 
                       // Поле для описания проекта
-                      Text(
-                        'Стоимость',
-                        style: TextStyle(color: Colors.blue, fontSize: 16.sp),
-                      ),
+                      Row(children: [
+                        Padding(padding: EdgeInsets.all(6).w),
+                        Text(
+                          "4.",
+                          style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10.w, 0, 0.w, 0),
+                        ),
+                        Text(
+                          'Стоимость',
+                          style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                        ),
+                      ]),
                       SizedBox(height: 5.h),
                       Container(
+                        margin: EdgeInsets.fromLTRB(35.w, 0, 0, 0),
                         decoration: BoxDecoration(
                           border: Border.all(width: 0.w, color: const Color.fromARGB(0, 0, 0, 0)),
                           borderRadius: BorderRadius.circular(8).w,
@@ -289,22 +341,33 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                         ),
                       ),
                       SizedBox(height: 10.h),
-                      Text(
-                        'Колличество',
-                        style: TextStyle(color: Colors.blue, fontSize: 16.sp),
-                      ),
+                      Row(children: [
+                        Padding(padding: EdgeInsets.all(6).w),
+                        Text(
+                          "5.",
+                          style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10.w, 0, 0.w, 0),
+                        ),
+                        Text(
+                          'Колличество',
+                          style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                        ),
+                      ]),
                       SizedBox(height: 5.h),
                       Container(
                         width: 0.9.sw,
                         child: Row(
                           children: [
                             Container(
+                              margin: EdgeInsets.fromLTRB(35.w, 0, 0, 0),
                               decoration: BoxDecoration(
                                 border: Border.all(width: 0.w, color: const Color.fromARGB(0, 0, 0, 0)),
                                 borderRadius: BorderRadius.circular(8).w,
                                 color: Colors.grey.withOpacity(0.1),
                               ),
-                              width: 0.5.sw,
+                              width: 0.415.sw,
                               child: TextField(
                                 keyboardType: TextInputType.number,
                                 controller: quantityController,
@@ -350,12 +413,23 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                       ),
                       SizedBox(height: 8.h),
                       // Поле для комментария
-                      Text(
-                        'Комментарий',
-                        style: TextStyle(color: Colors.blue, fontSize: 16),
-                      ),
+                      Row(children: [
+                        Padding(padding: EdgeInsets.all(6).w),
+                        Text(
+                          "6.",
+                          style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10.w, 0, 0.w, 0),
+                        ),
+                        Text(
+                          'Комментарий',
+                          style: TextStyle(color: Colors.blue, fontSize: 16),
+                        ),
+                      ]),
                       SizedBox(height: 5.h),
                       Container(
+                        margin: EdgeInsets.fromLTRB(35.w, 0, 0, 0),
                         decoration: BoxDecoration(
                           border: Border.all(width: 0, color: const Color.fromARGB(0, 0, 0, 0)),
                           borderRadius: BorderRadius.circular(8),

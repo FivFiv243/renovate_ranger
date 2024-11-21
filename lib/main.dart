@@ -7,7 +7,7 @@ import 'package:renovate_ranger/features/type_adapters/contact_class_adapter.dar
 import 'package:renovate_ranger/features/type_adapters/finance_adapter.dart';
 import 'package:renovate_ranger/features/type_adapters/item_class_adapter.dart';
 import 'package:renovate_ranger/features/type_adapters/project_class_adapter.dart';
-import 'package:renovate_ranger/screens/navigation_screen.dart';
+import 'package:renovate_ranger/screens/Tools_and_materials_screen.dart';
 import 'package:renovate_ranger/screens/onboarding_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffffffff)),
             useMaterial3: true,
           ),
-          home: onboardingflag == false ? OnboardingScreen() : NavigationScreen(),
+          home: onboardingflag == false ? OnboardingScreen() : ToolsAndMaterialsScreen(),
         );
       },
     );

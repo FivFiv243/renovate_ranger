@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:hive/hive.dart';
 
 @HiveType(typeId: 33, adapterName: "ItemClassAdapter")
