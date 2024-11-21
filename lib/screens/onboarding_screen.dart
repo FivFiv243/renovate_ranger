@@ -96,6 +96,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: ElevatedButton(
               onPressed: () {
                 _nextImage(context);
+                setState(() {});
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 61, 122, 228), // Цвет кнопки
@@ -112,6 +113,36 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Radio(
+                  splashRadius: 0,
+                  value: 0,
+                  activeColor: Colors.blue,
+                  groupValue: _currentPage,
+                  onChanged: (value) {
+                    null;
+                  }),
+              Radio(
+                  splashRadius: 0,
+                  value: 1,
+                  activeColor: Colors.blue,
+                  groupValue: _currentPage,
+                  onChanged: (value) {
+                    null;
+                  }),
+              Radio(
+                  splashRadius: 0,
+                  value: 2,
+                  activeColor: Colors.blue,
+                  groupValue: _currentPage,
+                  onChanged: (value) {
+                    null;
+                  })
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

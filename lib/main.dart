@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffffffff)),
             useMaterial3: true,
           ),
-          home: onboardingflag == false ? OnboardingScreen() : ToolsAndMaterialsScreen(),
+          home: onboardingflag == false ? OnboardingScreen() : OnboardingScreen(),
         );
       },
     );
