@@ -297,6 +297,7 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                           },
                           controller: nameController,
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10).w,
                             border: InputBorder.none,
                             hintText: '  Название',
                           ),
@@ -334,6 +335,7 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                           maxLines: 3,
                           minLines: 1,
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10).w,
                             border: InputBorder.none,
                             hintText: '  Стоимость',
                           ),
@@ -371,6 +373,7 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                                 keyboardType: TextInputType.number,
                                 controller: quantityController,
                                 decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(10).w,
                                   border: InputBorder.none,
                                   hintText: '  Колличество',
                                 ),
@@ -388,6 +391,7 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                                     hintText: typeItem,
                                     menuHeight: 0.5.sh,
                                     inputDecorationTheme: InputDecorationTheme(
+                                      contentPadding: EdgeInsets.all(10).w,
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: const Color.fromARGB(0, 244, 67, 54),
@@ -440,6 +444,7 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                           maxLines: 3,
                           controller: commentController,
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10).w,
                             border: InputBorder.none,
                             hintText: '  Комментарий',
                           ),

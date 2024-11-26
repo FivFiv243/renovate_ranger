@@ -407,7 +407,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
               ],
             ),
             child: DropdownButtonFormField<String>(
-              decoration: InputDecoration(border: InputBorder.none),
+              decoration: InputDecoration(contentPadding: EdgeInsets.all(10).w, border: InputBorder.none),
               items: [
                 DropdownMenuItem(value: "Все время", child: Text("  Все время")),
                 DropdownMenuItem(value: "Месяц", child: Text("  Месяц")),
@@ -440,7 +440,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
               ),
             ),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Padding(padding: EdgeInsets.fromLTRB(0, Qh / 15, 0, 0)),
+              Padding(padding: EdgeInsets.fromLTRB(0, Qh / 35, 0, 0)),
               Row(children: [
                 Container(
                   height: Qh / 40,
@@ -489,7 +489,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 Text(
                   projects.toString() + " руб",
                   style: TextStyle(fontSize: 12.sp),
-                )
+                ),
               ]),
               Padding(padding: EdgeInsets.fromLTRB(0, Qh / 160, 0, 0)),
               Row(children: [

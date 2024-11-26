@@ -88,6 +88,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
                     },
                     controller: _fsnameController,
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10).w,
                       counterText: "",
                       border: InputBorder.none,
                       hintText: '  ФИО',
@@ -116,6 +117,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
                       setState(() {});
                     },
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10).w,
                       counterText: "",
                       border: InputBorder.none,
                       hintText: '  Номер телефона',
@@ -140,6 +142,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
                     maxLength: 20,
                     controller: _emailController,
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10).w,
                       counterText: "",
                       border: InputBorder.none,
                       hintText: '  Электронная почта',
@@ -163,6 +166,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
                   child: TextField(
                     controller: _workDoneController,
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10).w,
                       counterText: "",
                       border: InputBorder.none,
                       hintText: '  Выполненные работы',
@@ -186,6 +190,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
                   child: TextField(
                     controller: _callbackController,
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10).w,
                       counterText: "",
                       border: InputBorder.none,
                       hintText: '  Отзыв',

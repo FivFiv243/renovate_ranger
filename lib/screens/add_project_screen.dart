@@ -136,6 +136,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                           },
                           controller: _projectnameControler,
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10).w,
                             border: InputBorder.none,
                             hintText: '  Название',
                           ),
@@ -198,6 +199,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                           maxLines: 3,
                           minLines: 1,
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10).w,
                             border: InputBorder.none,
                             hintText: '  Описание проекта',
                           ),
@@ -268,6 +270,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                                                     keyboardType: TextInputType.number,
                                                     controller: quantityController,
                                                     decoration: InputDecoration(
+                                                      contentPadding: EdgeInsets.all(10).w,
                                                       border: InputBorder.none,
                                                       hintText: '  ' + quantityController.text.trim() == '' ? quantityController.text.trim() : listtools[listtools.keys.toList()[index]].toString(),
                                                     ),
@@ -331,6 +334,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                         child: TextField(
                           controller: _projectcommentControler,
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10).w,
                             border: InputBorder.none,
                             hintText: '  Комментарий',
                           ),

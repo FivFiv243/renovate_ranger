@@ -86,7 +86,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                           ),
                           child: TextField(
                             controller: _nameController,
-                            decoration: InputDecoration(hintText: "  Название", hintStyle: TextStyle(color: Colors.grey[400]), border: InputBorder.none),
+                            decoration: InputDecoration(contentPadding: EdgeInsets.all(10).w, hintText: "  Название", hintStyle: TextStyle(color: Colors.grey[400]), border: InputBorder.none),
                           ),
                         ),
                         SizedBox(height: 12.5.h),
@@ -112,7 +112,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                                     child: TextField(
                                       controller: _sumController,
                                       keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(hintText: "  Сумма", hintStyle: TextStyle(color: Colors.grey[400]), border: InputBorder.none),
+                                      decoration: InputDecoration(contentPadding: EdgeInsets.all(10).w, hintText: "  Сумма", hintStyle: TextStyle(color: Colors.grey[400]), border: InputBorder.none),
                                     ),
                                   )
                                 ],
@@ -135,7 +135,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                                       color: Colors.grey.withOpacity(0.1),
                                     ),
                                     child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(border: InputBorder.none),
+                                      decoration: InputDecoration(contentPadding: EdgeInsets.all(10).w, border: InputBorder.none),
                                       items: [
                                         DropdownMenuItem(value: "Материалы", child: Text("  Материалы")),
                                         DropdownMenuItem(value: "Инструменты", child: Text("  Инструменты")),
@@ -185,6 +185,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                               // Обработка выбранной даты
                             },
                             decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(10).w,
                               hintStyle: TextStyle(color: Colors.grey[400]),
                               border: InputBorder.none,
                               hintText: selectedDate == null ? "  Дата" : selectedDate.toString(),
@@ -214,7 +215,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                             controller: _commentController,
                             minLines: 1,
                             maxLines: 4,
-                            decoration: InputDecoration(hintText: "  Комментарий", hintStyle: TextStyle(color: Colors.grey[400]), border: InputBorder.none),
+                            decoration: InputDecoration(contentPadding: EdgeInsets.all(10).w, hintText: "  Комментарий", hintStyle: TextStyle(color: Colors.grey[400]), border: InputBorder.none),
                           ),
                         ),
                         SizedBox(height: 7.5.h),

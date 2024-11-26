@@ -88,10 +88,15 @@ flutter:
     #tools screen
     - assets/icons/Essentional, UI/Add Circle.svg
     - assets/icons/Essentional, UI/Minus Circle.svg
-
+    #launch
+    - assets/launch/Group.png
     #Fonts
   fonts:
     - family: Alegreya
       fonts:
         - asset: assets/fonts/AlegreyaSans-Black.ttf
         - asset: assets/fonts/AlegreyaSans-Bold.ttf
+        - asset: assets/fonts/AlegreyaSans-Light.ttf
+        - asset: assets/fonts/AlegreyaSans-Thin.ttf
+        - asset: assets/fonts/AlegreyaSans-Regular.ttf
+        - asset: assets/fonts/AlegreyaSans-Medium.ttf

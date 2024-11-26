@@ -264,6 +264,7 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                       : "Инструменты",
                               menuHeight: 0.5.sh,
                               inputDecorationTheme: InputDecorationTheme(
+                                contentPadding: EdgeInsets.all(10).w,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: const Color.fromARGB(0, 244, 67, 54),
@@ -440,6 +441,7 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                                             keyboardType: TextInputType.number,
                                             controller: quantityController,
                                             decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.all(10).w,
                                               border: InputBorder.none,
                                               hintText: '  ' + quantityController.text.trim() == '' ? quantityController.text.trim() : Listtools[index].quantity.toString(),
                                             ),
