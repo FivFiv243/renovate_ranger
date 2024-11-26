@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow access to camera</string>
+	<string>App do not uses that permissions</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow access to microphone for video recording</string>
+	<string>App do not uses that permissions</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow access to photo library</string>
+	<string>Allow access to photo library, used in project adding screen</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

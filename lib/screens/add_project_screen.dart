@@ -310,7 +310,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8).w,
                             ),
-                            side: BorderSide(color: const Color.fromARGB(255, 3, 67, 244)),
+                            side: BorderSide(color: const Color(0xff4B87FE)),
                           ),
                         ),
                       ),
@@ -360,7 +360,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                     } else {}
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: ((_projectnameControler.text.trim() != '') & (xfilePath != '')) ? Colors.blue : Colors.grey.shade300,
+                    backgroundColor: ((_projectnameControler.text.trim() != '') & (xfilePath != '')) ? Color(0xff4B87FE) : Colors.grey.shade300,
                     minimumSize: Size(double.infinity.w, 50.h),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8).w,

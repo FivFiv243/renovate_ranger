@@ -99,7 +99,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 setState(() {});
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 61, 122, 228), // Цвет кнопки
+                backgroundColor: const Color(0xff4B87FE), // Цвет кнопки
                 minimumSize: Size(double.infinity.w, 50.h), // Ширина на весь экран
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.r), // <-- Radius
@@ -114,36 +114,44 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Radio(
-                  splashRadius: 0,
-                  value: 0,
-                  activeColor: Colors.blue,
-                  groupValue: _currentPage,
-                  onChanged: (value) {
-                    null;
-                  }),
-              Radio(
-                  splashRadius: 0,
-                  value: 1,
-                  activeColor: Colors.blue,
-                  groupValue: _currentPage,
-                  onChanged: (value) {
-                    null;
-                  }),
-              Radio(
-                  splashRadius: 0,
-                  value: 2,
-                  activeColor: Colors.blue,
-                  groupValue: _currentPage,
-                  onChanged: (value) {
-                    null;
-                  })
-            ],
-          ),
+          Container(
+              height: 25.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Transform.scale(
+                      scale: 1.sh / 1000,
+                      child: Radio(
+                          splashRadius: 0,
+                          value: 0,
+                          activeColor: Color(0xff4B87FE),
+                          groupValue: _currentPage,
+                          onChanged: (value) {
+                            null;
+                          })),
+                  Transform.scale(
+                      scale: 1.sh / 1000,
+                      child: Radio(
+                          splashRadius: 0,
+                          value: 1,
+                          activeColor: Color(0xff4B87FE),
+                          groupValue: _currentPage,
+                          onChanged: (value) {
+                            null;
+                          })),
+                  Transform.scale(
+                      scale: 1.sh / 1000,
+                      child: Radio(
+                          splashRadius: 0,
+                          value: 2,
+                          activeColor: Color(0xff4B87FE),
+                          groupValue: _currentPage,
+                          onChanged: (value) {
+                            null;
+                          }))
+                ],
+              )),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

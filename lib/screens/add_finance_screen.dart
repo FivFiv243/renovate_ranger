@@ -75,7 +75,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                         // Поле "Название"
                         Text(
                           "Название",
-                          style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
+                          style: TextStyle(fontSize: 14.sp, color: Color(0xff4B87FE)),
                         ),
                         SizedBox(height: 5.h),
                         Container(
@@ -100,7 +100,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                                 children: [
                                   Text(
                                     "Сумма",
-                                    style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
+                                    style: TextStyle(fontSize: 14.sp, color: Color(0xff4B87FE)),
                                   ),
                                   SizedBox(height: 5.h),
                                   Container(
@@ -125,7 +125,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                                 children: [
                                   Text(
                                     "Тип",
-                                    style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
+                                    style: TextStyle(fontSize: 14.sp, color: Color(0xff4B87FE)),
                                   ),
                                   SizedBox(height: 5.w),
                                   Container(
@@ -161,7 +161,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                         // Поле "Дата"
                         Text(
                           "Дата",
-                          style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
+                          style: TextStyle(fontSize: 14.sp, color: Color(0xff4B87FE)),
                         ),
                         SizedBox(height: 5.h),
                         Container(
@@ -188,7 +188,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                               hintStyle: TextStyle(color: Colors.grey[400]),
                               border: InputBorder.none,
                               hintText: selectedDate == null ? "  Дата" : selectedDate.toString(),
-                              suffixIcon: Icon(Icons.calendar_today, color: Colors.blue),
+                              suffixIcon: Icon(Icons.calendar_today, color: Color(0xff4B87FE)),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8).w,
                                 borderSide: BorderSide(color: Colors.blue),
@@ -201,7 +201,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                         // Поле "Комментарий"
                         Text(
                           "Комментарий",
-                          style: TextStyle(fontSize: 15.sp, color: Colors.grey[600]),
+                          style: TextStyle(fontSize: 15.sp, color: Color(0xff4B87FE)),
                         ),
                         SizedBox(height: 5.h),
                         Container(
@@ -229,7 +229,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (widget.TypeOpen == -1) {
-                      if (_nameController.text.trim() != '' && _sumController.text.trim() != '' && _sumController.text.trim() != '' && typefinance != '') {
+                      if (_nameController.text.trim() != '' && _sumController.text.trim() != '' && _sumController.text.trim() != '' && typefinance != '' && selectedDate != null) {
                         widget.financeList.add(Finance(name: _nameController.text.trim(), expanse: _sumController.text.trim(), date: selectedDate.toString(), type: typefinance));
                         HiveBase().PutFinanceInBase(widget.financeList);
                         Navigator.of(context).pop();
@@ -237,7 +237,7 @@ class _AddFinanceScreenState extends State<AddFinanceScreen> {
                     } else {}
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: (_nameController.text.trim() != '' && _sumController.text.trim() != '' && _sumController.text.trim() != '' && typefinance != '') ? const Color.fromARGB(255, 61, 122, 228) : Colors.grey,
+                    backgroundColor: (_nameController.text.trim() != '' && _sumController.text.trim() != '' && _sumController.text.trim() != '' && typefinance != '' && selectedDate != null) ? Color(0xff4B87FE) : Colors.grey,
                     minimumSize: Size(double.infinity.w, 50.h),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12).w,

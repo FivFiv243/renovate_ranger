@@ -72,7 +72,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
                 // Поле для ввода ФИО
                 Text(
                   'ФИО',
-                  style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                  style: TextStyle(color: Color(0xff4B87FE), fontSize: 16.sp),
                 ),
                 SizedBox(height: 5.h),
                 Container(
@@ -99,7 +99,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
                 // Поле для ввода номера телефона
                 Text(
                   'Номер телефона',
-                  style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                  style: TextStyle(color: Color(0xff4B87FE), fontSize: 16.sp),
                 ),
                 SizedBox(height: 5.h),
                 Container(
@@ -127,7 +127,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
                 // Поле для ввода электронной почты
                 Text(
                   'Электронная почта',
-                  style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                  style: TextStyle(color: Color(0xff4B87FE), fontSize: 16.sp),
                 ),
                 SizedBox(height: 5.h),
                 Container(
@@ -151,7 +151,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
                 // Поле для ввода выполненных работ
                 Text(
                   'Выполненные работы',
-                  style: TextStyle(color: Colors.blue, fontSize: 16),
+                  style: TextStyle(color: Color(0xff4B87FE), fontSize: 16),
                 ),
                 SizedBox(height: 5.h),
                 Container(
@@ -174,7 +174,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
                 // Поле для ввода отзыва
                 Text(
                   'Отзыв',
-                  style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                  style: TextStyle(color: Color(0xff4B87FE), fontSize: 16.sp),
                 ),
                 SizedBox(height: 5.h),
                 Container(
@@ -212,7 +212,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: ((_fsnameController.text.trim() != '') & (_phoneNumberController.text.trim() != '')) ? Colors.blue : Colors.grey.shade300,
+                    backgroundColor: ((_fsnameController.text.trim() != '') & (_phoneNumberController.text.trim() != '')) ? Color(0xff4B87FE) : Colors.grey.shade300,
                     minimumSize: Size(double.infinity.w, 50.h),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8).w,

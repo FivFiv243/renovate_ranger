@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 
 class HiveBase {
   final boxList = [Hive.box('contactsBox')];

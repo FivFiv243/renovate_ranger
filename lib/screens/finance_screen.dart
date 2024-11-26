@@ -169,7 +169,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
             child: Padding(
           padding: EdgeInsets.all(7.5).w,
           child: Container(
-            height: 0.85.sh,
+            height: 0.8885.sh,
             child: Column(
               children: [
                 // Блок с круговой диаграммой и общей суммой
@@ -192,31 +192,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 SizedBox(height: 10.h),
                 // Блок с историей расходов
                 _buildExpenseHistory(1.sh, 1.sw),
-                Spacer(),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(
-                            builder: (context) => AddFinanceScreen(
-                                  TypeOpen: -1,
-                                  financeList: categoryExpenses,
-                                )))
-                        .then((_) {
-                      setState(() {});
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 61, 122, 228),
-                    minimumSize: Size(double.infinity.w, 50.h),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12).w,
-                    ),
-                  ),
-                  child: Text(
-                    'Добавить запись',
-                    style: TextStyle(fontSize: 16.sp, color: Colors.white),
-                  ),
-                ),
               ],
             ),
           ),
@@ -226,54 +201,93 @@ class _FinanceScreenState extends State<FinanceScreen> {
   Widget _buildExpenseHistory(double Qh, double Qw) {
     int FilterSetter = -1;
     return Container(
-      padding: EdgeInsets.all(2.5).w,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12).w,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3),
+        padding: EdgeInsets.all(2.5).w,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12).w,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        height: 0.4445.sh,
+        child: Column(children: [
+          Expanded(
+            flex: 150,
+            child: ListView.builder(
+              itemCount: categoryExpenses.length,
+              itemBuilder: (context, index) {
+                final expense = categoryExpenses[index];
+                if (filter == "Все время") {
+                  FilterSetter = 100000;
+                }
+                if (filter == "Месяц") {
+                  FilterSetter = 30;
+                }
+                if (filter == "3 Месяца") {
+                  FilterSetter = 91;
+                }
+                if (filter == "6 Месяцев") {
+                  FilterSetter = 182;
+                }
+                if (filter == "Год") {
+                  FilterSetter = 365;
+                }
+                if (DateTime.now().difference(DateTime.parse(expense.date)).inDays <= FilterSetter) {
+                  return ListTileTheme(
+                      data: ListTileThemeData(),
+                      child: ListTile(
+                        title: Text(expense.name.toString().substring(0, expense.name.toString().length > 30 ? 30 : expense.name.toString().length)),
+                        subtitle: Text('${expense.type} • ${expense.date}'),
+                        trailing: Text(
+                          '${expense.expanse} руб',
+                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ));
+                }
+              },
+            ),
           ),
-        ],
-      ),
-      height: 0.35.sh,
-      child: ListView.builder(
-        itemCount: categoryExpenses.length,
-        itemBuilder: (context, index) {
-          final expense = categoryExpenses[index];
-          if (filter == "Все время") {
-            FilterSetter = 100000;
-          }
-          if (filter == "Месяц") {
-            FilterSetter = 30;
-          }
-          if (filter == "3 Месяца") {
-            FilterSetter = 91;
-          }
-          if (filter == "6 Месяцев") {
-            FilterSetter = 182;
-          }
-          if (filter == "Год") {
-            FilterSetter = 365;
-          }
-          if (DateTime.now().difference(DateTime.parse(expense.date)).inDays <= FilterSetter) {
-            return ListTileTheme(
-                data: ListTileThemeData(),
-                child: ListTile(
-                  title: Text(expense.name.toString().substring(0, expense.name.toString().length > 30 ? 30 : expense.name.toString().length)),
-                  subtitle: Text('${expense.type} • ${expense.date}'),
-                  trailing: Text(
-                    '${expense.expanse} руб',
-                    style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+          Spacer(),
+          Container(
+            width: 350.w,
+            child: OutlinedButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(
+                          builder: (context) => AddFinanceScreen(
+                                TypeOpen: -1,
+                                financeList: categoryExpenses,
+                              )))
+                      .then((_) {
+                    setState(() {});
+                  });
+                },
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(color: Color(0xff4B87FE), width: 2), // Цвет и толщина границы
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12).w, // Скругление углов
                   ),
-                ));
-          }
-        },
-      ),
-    );
+                  padding: EdgeInsets.symmetric(horizontal: 24.h, vertical: 12.w), // Внутренние отступы
+                ),
+                child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Text(
+                    'Добавить запись',
+                    style: TextStyle(
+                      color: Colors.black, // Цвет текста
+                      fontSize: 16.sp, // Размер текста
+                    ),
+                  ),
+                ])),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 5.h, 0, 0),
+          )
+        ]));
   }
 
   List<PieChartSectionData> _getPieChartSections() {
@@ -363,12 +377,18 @@ class _FinanceScreenState extends State<FinanceScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Padding(
+            padding: EdgeInsets.fromLTRB(2.5.w, 10.h, 0, 0),
+            child: Text(
+              "Статистка расходов",
+              style: TextStyle(fontSize: 18.sp, color: const Color(0xff4B87FE)),
+            )),
         Row(children: [
           Text("Всего ", style: TextStyle(fontSize: 18.sp)),
           Spacer(),
           Text(
             '${total.toStringAsFixed(0)} руб',
-            style: TextStyle(fontSize: 20.sp, color: Colors.blue),
+            style: TextStyle(fontSize: 20.sp, color: const Color(0xff4B87FE)),
           ),
           Padding(padding: EdgeInsets.all(Qw / 30).w),
           Container(

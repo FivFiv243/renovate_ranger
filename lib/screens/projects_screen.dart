@@ -190,7 +190,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                         });
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 61, 122, 228),
+                        backgroundColor: const Color(0xff4B87FE),
                         minimumSize: Size(double.infinity.w, 50.h),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12).w,
@@ -343,7 +343,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                             });
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 61, 122, 228),
+                            backgroundColor: const Color(0xff4B87FE),
                             minimumSize: Size(double.infinity.w, 50.h),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12).w,

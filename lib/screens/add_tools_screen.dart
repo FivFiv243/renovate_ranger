@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:renovate_ranger/features/database/hive_base.dart';
 import 'package:renovate_ranger/features/models/item_class.dart';
-import 'package:renovate_ranger/main.dart';
 
 class AddToolsScreen extends StatefulWidget {
   const AddToolsScreen({super.key, required this.toolsList, required this.Typeopen});
@@ -398,6 +397,7 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                                     onSelected: (value) {
                                       debugPrint(value);
                                       typeItem = value!;
+                                      setState(() {});
                                     },
                                     dropdownMenuEntries: [
                                       DropdownMenuEntry(value: "шт.", label: "шт."),
@@ -474,7 +474,7 @@ class _AddToolsScreenState extends State<AddToolsScreen> {
                     } else {}
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: ((nameController.text.trim() != '') & (included != 0) & (typeChanger != 0) & (priceController.text.trim() != '') & (quantityController.text.trim() != '') & (typeItem != '') & (typeItem != null)) ? Colors.blue : Colors.grey.shade300,
+                    backgroundColor: ((nameController.text.trim() != '') && (included != 0) && (typeChanger != 0) && (priceController.text.trim() != '') && (quantityController.text.trim() != '') && (typeItem != '') && (typeItem != '')) ? Colors.blue : Colors.grey.shade300,
                     minimumSize: Size(double.infinity.w, 50.h),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8).w,

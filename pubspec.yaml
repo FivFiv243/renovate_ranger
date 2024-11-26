@@ -27,6 +27,8 @@ dependencies:
   hive: 2.2.3
   isar_flutter_libs: ^4.0.0-dev.13
   path_provider: ^2.1.0
+  flutter_localizations:
+    sdk: flutter
 
 
 
@@ -39,14 +41,14 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  adaptive_icon_foreground: "assets/launch/Icon-App.png"
-  image_path: "assets/launch/Icon-App.png"
+  adaptive_icon_foreground: "assets/launch/Icon-App.jpg"
+  image_path: "assets/launch/Icon-App.jpg"
   min_sdk_android: 21 # android min sdk min:16, default 21
   adaptive_icon_background: "#ffffff"
   remove_alpha_ios: true
   macos:
     generate: true
-    image_path: "assets/launch/Icon-App.png"
+    image_path: "assets/launch/Icon-App.jpg"
 
 flutter:
 

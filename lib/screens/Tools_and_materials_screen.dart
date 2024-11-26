@@ -178,13 +178,13 @@ class _ToolsAndMaterialsScreenState extends State<ToolsAndMaterialsScreen> {
                   Center(
                     child: Column(
                       children: [
-                        Padding(padding: EdgeInsets.fromLTRB(0, 20.h, 0, 0)),
+                        Padding(padding: EdgeInsets.fromLTRB(0, 110.h, 0, 0)),
                         SizedBox(
-                          width: 0.95.sh,
+                          width: 0.8.sh,
                           height: 0.75.sw,
                           child: Image.asset('assets/images/toolsfiller.x2.png'),
                         ),
-                        SizedBox(height: 5.h),
+                        SizedBox(height: 0.h),
                         Text(
                           'Список пуст.',
                           style: TextStyle(
